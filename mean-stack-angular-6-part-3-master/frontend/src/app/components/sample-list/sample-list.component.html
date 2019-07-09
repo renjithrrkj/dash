@@ -1,3 +1,18 @@
 <p>
 sample-list works!
 </p>
+<table *ngIf="data">
+    <!-- ADD HEADERS -->
+    <tr>
+        <th>ID</th>
+            <th>Testcase ID</th>
+                <th>Time</th>
+    </tr>
+
+    <!-- BIND ARRAY TO TABLE -->
+    <tr *ngFor="let d of data">
+        <td>{{d._id}}</td>
+            <td>{{d.TestCaseID}}</td>
+                <td>{{d.StartTime}}</td>
+    </tr>
+</table>

@@ -30,11 +30,14 @@ app.use(bodyParser.json());
 //    console.log('mongodb tez database connection established successfully!');
 //});
  var result;
- database.collection('tez').find({"TestScript":"attrqa.authtoken.AuthorizationToken_MIE"}).toArray(function(err,data){
+ function queryinterval(){
+ database.collection('tez').find({"RunId":"ZWYSA22H"}).toArray(function(err,data){
      
        result=data;
-       console.log(data);
- });
+      // console.log(data);
+ });}
+ setInterval(queryinterval, 1500);
+
     //asynchronous ,res.json is excecuted before the promise is resolved
 
 
