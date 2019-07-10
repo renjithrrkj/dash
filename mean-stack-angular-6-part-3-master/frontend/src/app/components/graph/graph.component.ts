@@ -28,7 +28,7 @@ export class GraphComponent implements OnInit {
     },
     { 
       label: 'fail',
-      data: [-33, -9, -28, -54, -77, -51, -24,-33,-12,-23,-44]
+      data: [33, 9, 28, 54, 77, 51, 24,33,12,23,44]
     }
   ];
 
