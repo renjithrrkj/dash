@@ -2,6 +2,7 @@ const express =require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
  var mongoUtil = require('./db');
+ var resolved =require('./resolver')
 
 //const tez =require('./models/tez');
 var database = mongoUtil.getDb();
@@ -30,12 +31,36 @@ app.use(bodyParser.json());
 //    console.log('mongodb tez database connection established successfully!');
 //});
  var result;
+
+ var latestruns;
+
  database.collection('tez').find({"TestScript":"attrqa.authtoken.AuthorizationToken_MIE"}).toArray(function(err,data){
      
        result=data;
        console.log(data);
  });
     //asynchronous ,res.json is excecuted before the promise is resolved
+
+ var col =database.collection('tez')
+  
+ /*col.aggregate(
+    [
+      { $sort: {  "TestScript": 1,"StartTime"
+      : 1} },
+      {
+        $group:
+          {
+            _id: "$TestScript",
+            
+            StartTime: { $last: "$StartTime" }
+          }
+      }
+    ]
+).toArray(function(err,latest){
+  
+   latestruns = latest;
+   console.log(latest);
+ })*/
 
 
 router.get("/tez",(req, res) => {
@@ -58,6 +83,7 @@ router.route('/tez/:id').get((req, res) => {
     });
 });
 
+resolved.getTeam_name();
 /*router.route('/issues/add').post((req, res) => {
     let issue = new Issue(req.body);
     issue.save()
