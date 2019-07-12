@@ -1,81 +1,142 @@
 
 
 
-module.exports ={getTeam_name:function(){
-var mongoUtil = require('./db');
-var database = mongoUtil.getDb();
+module.exports ={getTeam_name:function(res){
 
-mongoUtil.connectToServer( function( err, client ) {
-    if (err) console.log(err);
-    var col =database.collection('tez')
-
-
-var col =database.collection('tez');
+ var mongoUtil = require('./db');
+ mongoUtil.connectToServer( function( err, client ) {
+  if (err) console.log(err);
+  var database = mongoUtil.getDb();
+  var col =database.collection('tez')
 
 
-var latestruns=[]; 
+  var col =database.collection('tez');
 
 
-var Teams={};//Teams in viq
-var team_name_temp;//var to store tem name temporarily
-col.aggregate(// this function retrives the docs with status passed passed and 
+  var Teams={};//Teams in viq
+  var Teams_fail ={};
+  var Teams_pass={};
+  var TeamArr=[];
+
+
+
+
+  var team_name_temp;//var to store tem name temporarily
+  col.aggregate(// this function retrives the docs with status passed passed and 
     
-    [
-    { $match : { 'Status' : "PASSED" } },
-      { $sort: {  "TestScript": 1,"StartTime"
-      : 1} },
-      {
-        $group://groups them into testscrpit that were excecuted lastest using last agregator 
-          {
-            _id: "$TestScript",
+      [
+      
+        { $sort: {"StartTime"
+        : 1} },
+        //{ $match : { 'Status' : "PASSED" } },
+        {
+            $group://groups them into testscrpit that were excecuted lastest using last agregator 
+            {
+                 _id: {TestScript:"$TestScript"},
             
-            StartTime: { $last: "$StartTime" }
-          }
-      }
-    ]
-).toArray(function(err,latestrun){//using to array beacause asynchronous nature of js
+                 StartTime: { $last: "$StartTime" },
+                  Status:{$last: "$Status"}
+            }
+            
+        }
+        
+      ]
+  ).toArray(function(err,latestrun){//using to array beacause asynchronous nature of js
   
-   latestruns=  latestrun;//not required change this
+    console.log(latestrun);
 
-   
-  // console.log(latestruns);
-   for(var val of latestruns)//traverse recived array for objects
-   {
-    console.log(val['_id']);
-      if(val['_id'].substring(0,5)=='tests')//the testscript name starting with tests are python
-     {
+            for(var val of latestrun)//traverse recived array for objects
+            {
+    
+                    if(val['_id']['TestScript'].substring(0,5)=='tests')//the testscript name starting with tests are python
+                    {
          
-        team_name_temp=val['_id'].split('/')[1];
-        console.log(team_name_temp);
+                        team_name_temp=val['_id']['TestScript'].split('/')[1];
+        
  
-     }
-     else
-     {
-         team_name_temp=val['_id'].split('.')[1];
+                    }
+                    else
+                    {
+                        team_name_temp=val['_id']['TestScript'].split('.')[1];
          
-     }
-     if( Object.keys(Teams).includes(team_name_temp))//increment the value correspong to team name
-     {
-         Teams[team_name_temp]++;
-         console.log(/*Teams[team_name_temp]*/Object.keys(Teams));
-     }
-     else// if new team name found insert to array
-     {
-         Teams[team_name_temp]=1;
-         console.log(Object.keys(Teams));
+                    }
+                    if( Object.keys(Teams).includes(team_name_temp))//increment the value correspong to team name
+                    {
+                          
+                          Teams[team_name_temp]++;
+                          
+                          if(val['Status']=="PASSED")
+                          {  
+                             if( Object.keys(Teams_pass).includes(team_name_temp))
+                             {
+                                 Teams_pass[team_name_temp]++;
+                             }   
+                             else
+                             {
+                                 Teams_pass[team_name_temp] =1;
+                             }
+                          }
+                          else if(val['Status']=="FAILED")
+                          {  
+                             if( Object.keys(Teams_fail).includes(team_name_temp))
+                             {
+                                 Teams_fail[team_name_temp]++;
+                             }   
+                             else
+                             {
+                                 Teams_fail[team_name_temp] =1;
+                             }
+                          }
          
-     }
-    } 
-
-console.log((Teams));
-   
- })
-
- console.log(latestruns);
- 
-
+                    }
+                    else// if new team name found insert to array
+                    {
+        
+        
+                           Teams[team_name_temp]=1;
+                           Teams_pass[team_name_temp]=0;
+                           Teams_fail[team_name_temp] = 0;
+                           if(val['Status']=="PASSED")
+                           {  
+                              if( Object.keys(Teams_pass).includes(team_name_temp))
+                              {
+                                  Teams_pass[team_name_temp]++;
+                              }   
+                              else
+                              {
+                                  Teams_pass[team_name_temp] =1;
+                              }
+                           }
+                           else if(val['Status']=="FAILED")
+                           {  
+                              if( Object.keys(Teams_fail).includes(team_name_temp))
+                              {
+                                  Teams_fail[team_name_temp]++;
+                              }   
+                              else
+                              {
+                                  Teams_fail[team_name_temp] = 1;
+                              }
+                           }
+         
+         
+                    }
+             }
+             console.log(Teams);
+             //res.json(Teams); 
+             TeamArr=[Teams,Teams_pass,Teams_fail];
+             res.json(TeamArr);
+            });
+//this is to retrive failed values
   
- });
+  
+ 
+  });
+
+
+//return Teams;
+
+
+
 }
-
 }

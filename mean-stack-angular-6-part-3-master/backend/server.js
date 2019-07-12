@@ -82,8 +82,12 @@ router.route('/tez/:id').get((req, res) => {
             res.json(issue);
     });
 });
+router.get('/Teams',(req,res)=>{
+    var kr = resolved.getTeam_name(res);
+    
+    console.log(kr);
+});
 
-resolved.getTeam_name();
 /*router.route('/issues/add').post((req, res) => {
     let issue = new Issue(req.body);
     issue.save()

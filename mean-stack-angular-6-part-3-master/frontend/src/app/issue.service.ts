@@ -42,4 +42,9 @@ export class IssueService {
   deleteIssue(id) {
     return this.http.get(`${this.uri}/issues/delete/${id}`);
   }*/
+  getPass_Per_Team()
+  {
+    return this.http.get(`${this.uri}/Teams`);
+   
+  }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IssueService } from '../../issue.service';
 
 @Component({
   selector: 'app-graph',
@@ -7,38 +8,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private issueService: IssueService) { }
+  //TeamsArr: object;
+  
   ngOnInit() {
+    this.issueService.getPass_Per_Team().subscribe((TeamsArr) => {
+      console.log(TeamsArr);
+      this.chartData[0].data=Object.values(TeamsArr[1]);
+      this.chartData[1].data=Object.values(TeamsArr[2]);
+      this.chartData[2].data=Object.values(TeamsArr[0]);
+;      this.labels= Object.keys(TeamsArr[0])
+    });
   }
+
+  
   title = 'Test pass-fail chart  ';
 
   // ADD CHART OPTIONS. 
   chartOptions = {
     responsive: true    // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
   }
-
-  labels =  ['TeamA', 'TeamB', 'TeamC', 'TeamD', 'TeamE', 'TeamF', 'TeamG', 'TeamH', 'TeamI', 'TeamJ', 'TeamK', 'TeamL'];
+   
+  labels = [];
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
-  chartData = [
+  chartData=[] = [
     {
       label: 'pass',
-      data: [21, 56, 4, 31, 45, 15, 57, 61, 9, 17, 24, 59] 
+      data:[]
     },
     { 
       label: 'fail',
-      data: [-33, -9, -28, -54, -77, -51, -24,-33,-12,-23,-44]
+      data: []
+    },
+    {
+      label:'Toatal',
+      data:[]
     }
+  
   ];
 
   // CHART COLOR.
   colors = [
     { // 1st Year.
-      backgroundColor: 'rgba(22,700,2,0.4)'
+      backgroundColor: 'rgba(22,1400,100,0.8)'
     },
     { // 2nd Year.
       backgroundColor: 'rgba(2000, 19, 22, 0.8)'
+    },
+    {
+      backgroundColor: 'rgba(20, 19, 200, 0.8)'
     }
   ]
   
@@ -46,5 +65,5 @@ export class GraphComponent implements OnInit {
   onChartClick(event) {
     console.log(event);
   }
-
+  
 }
