@@ -30,15 +30,20 @@ app.use(bodyParser.json());
 //connection.once('open', () => {
 //    console.log('mongodb tez database connection established successfully!');
 //});
- var result;
+ var result
+ 
 
  var latestruns;
 
  database.collection('tez').find({"TestScript":"attrqa.authtoken.AuthorizationToken_MIE"}).toArray(function(err,data){
+ function queryinterval(){
+ database.collection('tez').find({"RunId":"ZWYSA22H"}).toArray(function(err,data){
      
        result=data;
-       console.log(data);
- });
+      // console.log(data);
+ });}
+ setInterval(queryinterval, 1500);
+
     //asynchronous ,res.json is excecuted before the promise is resolved
 
  var col =database.collection('tez')
@@ -126,7 +131,7 @@ router.route('/issues/delete/:id').get((req, res) => {
 
 app.use('/', router);
 
-app.listen(4000, () => console.log('Express server running on port 4000'));
+app.listen(5000, () => console.log('Express server running on port 5000'));
 });
 
 function newFunction(database) {
