@@ -17,7 +17,7 @@ export class GraphComponent implements OnInit {
       this.chartData[0].data=Object.values(TeamsArr[1]);
       this.chartData[1].data=Object.values(TeamsArr[2]);
       this.chartData[2].data=Object.values(TeamsArr[0]);
-;      this.labels= Object.keys(TeamsArr[0])
+    this.labels= Object.keys(TeamsArr[0]);
     });
   }
 
@@ -39,11 +39,13 @@ export class GraphComponent implements OnInit {
     },
     { 
       label: 'fail',
+
       data: []
     },
     {
       label:'Toatal',
       data:[]
+      
     }
   
   ];
@@ -65,5 +67,4 @@ export class GraphComponent implements OnInit {
   onChartClick(event) {
     console.log(event);
   }
-  
 }

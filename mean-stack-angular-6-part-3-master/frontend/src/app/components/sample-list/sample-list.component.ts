@@ -18,6 +18,8 @@ export class SampleListComponent implements OnInit {
   ngOnInit() {
     this.issueService.getIssues().subscribe((issues) => {
       console.log(issues);
+      this.data = issues as string[];
+
     });
   }
 }
