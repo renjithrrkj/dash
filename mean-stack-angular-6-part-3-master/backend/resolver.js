@@ -7,7 +7,7 @@ module.exports ={getTeam_name:function(res){
  mongoUtil.connectToServer( function( err, client ) {
   if (err) console.log(err);
   var database = mongoUtil.getDb();
-  var col =database.collection('tez')
+  
 
 
   var col =database.collection('tez');

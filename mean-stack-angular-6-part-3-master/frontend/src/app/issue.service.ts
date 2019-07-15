@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class IssueService {
 
-  uri = 'http://10.60.163.75:5000';
+  uri = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
@@ -46,5 +46,9 @@ export class IssueService {
   {
     return this.http.get(`${this.uri}/Teams`);
    
+  }
+  get_Test_History()
+  {
+    return this.http.get(`${this.uri}/Teams/daily`);
   }
 }

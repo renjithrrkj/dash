@@ -2,7 +2,8 @@ const express =require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
  var mongoUtil = require('./db');
- var resolved =require('./resolver')
+ var resolved =require('./resolver');
+ var No_Of_Tests = require('./No_Of_Tests');
 
 //const tez =require('./models/tez');
 var database = mongoUtil.getDb();
@@ -79,18 +80,15 @@ router.get("/tez",(req, res) => {
     
 });
 
-router.route('/tez/:id').get((req, res) => {
-    tez.findById(req.params.id, (err, issue) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(issue);
-    });
+router.route('/Teams/daily').get((req, res) => {
+   
+    console.log(Date(1562659727));
+    No_Of_Tests.get_Daily(res);
 });
 router.get('/Teams',(req,res)=>{
-    var kr = resolved.getTeam_name(res);
+     resolved.getTeam_name(res);
     
-    console.log(kr);
+    //console.log(kr);
 });
 
 /*router.route('/issues/add').post((req, res) => {
@@ -137,7 +135,4 @@ app.use('/', router);
 
 app.listen(5000, () => console.log('Express server running on port 5000'));
 });
-
-function newFunction(database) {
-    database.collection('tez').findOne({ "TestScript": "attrqa.authtoken.AuthorizationToken_MIE" });
-}
+});

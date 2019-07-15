@@ -14,7 +14,7 @@ import { EditComponent } from './components/edit/edit.component';
 import {GraphComponent} from './components/graph/graph.component';
 import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {SampleListComponent} from './components/sample-list/sample-list.component';
-
+import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_Interval.component';
 
 import { IssueService } from './issue.service';
 
@@ -25,7 +25,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full'},
   {path: 'graph', component:GraphComponent },
   {path:'sampleList',component:SampleListComponent},
-  {path:'bar', component:TopBarComponent}
+  {path:'bar', component:TopBarComponent},
+  {path:'Test_Interval',component:Test_In_IntervalComponent}
+
 ];
 
 @NgModule({
@@ -37,6 +39,7 @@ const routes: Routes = [
     GraphComponent,
     TopBarComponent,
     SampleListComponent,
+    Test_In_IntervalComponent
   ],
   imports: [
     BrowserModule,
