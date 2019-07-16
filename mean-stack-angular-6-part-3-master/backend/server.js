@@ -81,8 +81,8 @@ router.get("/tez",(req, res) => {
 });
 
 router.route('/Teams/daily').get((req, res) => {
-   
-    console.log(Date(1562659727));
+   var d= new Date(1562659727000);
+    console.log(d);
     No_Of_Tests.get_Daily(res);
 });
 router.get('/Teams',(req,res)=>{
