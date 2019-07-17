@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
+
 import { IssueService } from '../../issue.service';
+import { Chart, ChartOptions } from 'chart.js';
+import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 
 
 @Component({
