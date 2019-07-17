@@ -57,7 +57,7 @@ module.exports ={getTeam_name:function(res){
                     }
                     else
                     {
-                        team_name_temp=val['_id']['TestScript'].split('.')[1];
+                        team_name_temp=val['_id']['TestScript'].split('.')[2];
          
                     }
                     if( Object.keys(Teams).includes(team_name_temp))//increment the value correspong to team name

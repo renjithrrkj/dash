@@ -50,36 +50,49 @@ module.exports ={get_Daily:function(res)
                     }
                     else
                     {
-                        team_name_temp=val['_id']['Test'].split('.')[1];
+                        team_name_temp=val['_id']['Test'].split('.')[2];
          
                     }
 
                     date_temp=val['_id']['Sub']
                     
-                    if( (Team_date).includes({"Team":team_name_temp,"Date":date_temp}))//increment the value correspong to team name
-                    {
-                          
-                          Team_date[{Team:team_name_temp,Date:date_temp}]+= val['count'];
-                          
-                          
-                          
-                         
-         
-                    }
-                    else// if new team name found insert to array
-                    {
+                    
+                    
         
         
-                           Team_date["{Team:team_name_temp,Date:date_temp}"]=val['count'];
+                           Team_date.push({"Team":team_name_temp,"Date":date_temp,"count":val['count']});
                            
-                          console.log(Team_date[{Team:team_name_temp,Date:date_temp}]) 
-                          console.log(Team_date);
+                         // console.log(Team_date[{Team:team_name_temp,Date:date_temp}]) 
+                         // console.log(Team_date);
          
-                    }
+                    
            
+             }
+
+            //var sum=0;
+            for(var i of Team_date)
+           /* {
+                sum += i["count"];
+            }*/
+            {
+                for(var j of Team_date)
+                {
+                    if((i["Team"]==j["Team"]))
+                        if(i["Date"]==j["Date"])
+                        {
+                           {
+                            i["count"]+=j["count"];
+                            var index= Team_date.indexOf(j);
+                            if(index>-1){
+                            Team_date.splice(index,1);  
+                            console.log(index);
+                            console.log(Team_date);    }                       
+                           }
+                        }
                 }
-                console.log(Team_date);
-                res.json(Team_date);
+            }
+            console.log(Team_date);
+            res.json(Team_date);
             }
         
         

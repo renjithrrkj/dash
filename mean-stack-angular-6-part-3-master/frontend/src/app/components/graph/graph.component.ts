@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { IssueService } from '../../issue.service';
 import { Chart, ChartOptions } from 'chart.js';
-import {ChartDataLabels} from 'chartjs-plugin-datalabels';
+//import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 
 
 @Component({
@@ -40,11 +40,7 @@ export class GraphComponent implements OnInit {
           gridLines: {
               offsetGridLines: true
           },
-          scaleLabel: {
-            display: true,
-            labelString: "Time in Seconds",
-            fontColor: "red"
-          }
+          
           
         
           
@@ -54,14 +50,14 @@ export class GraphComponent implements OnInit {
   title: {
     display: true,
     text:'Test pass-fail chart',
-    fontSize:50,
+    fontSize:40,
     fontColor:'#000000'
 
 },
 legend: {
   display: true,
   labels: {
-      fontColor: 'rgb(255, 9, 132)',
+      fontColor: 'rgb(1, 2, 1)',
       fontSize:18
   }
 },
@@ -104,18 +100,24 @@ layout: {
   // CHART COLOR.
   colors = [
     { // 1st Year.
-      backgroundColor: 'rgba(22,400,100,0.8)',
+      backgroundColor: 'rgba(22,400,100,0.3)',
       hoverBackgroundColor:'rgba(22,400,100,0.9)',
+      borderColor:'rgba(22,400,100,0.9)',
+      borderWidth:3
     
     },
     { // 2nd Year.
-      backgroundColor: 'rgba(2000, 19, 22, 0.8)',
+      backgroundColor: 'rgba(2000, 19, 22, 0.3)',
       hoverBackgroundColor:'rgba(2000, 19, 22, 0.9)',
+      borderColor:'rgba(2000, 19, 22, 0.9)',
+      borderWidth:3
       
     },
     {
-      backgroundColor: 'rgba(5, 19, 300, 0.8)',
-      hoverBackgroundColor:'rgba(5, 19, 300, 0.9)'
+      backgroundColor: 'rgba(5, 19, 300, 0.3)',
+      hoverBackgroundColor:'rgba(5, 19, 300, 0.9)',
+      borderColor:'rgba(5, 19, 300, 0.9)',
+      borderWidth:3
     }
   ]
   
