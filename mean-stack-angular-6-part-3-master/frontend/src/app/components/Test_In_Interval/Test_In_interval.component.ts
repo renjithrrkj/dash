@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import {Chart} from 'chart.js';
+//import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'Test_Interval',
@@ -14,9 +16,9 @@ export class Test_In_IntervalComponent implements OnInit {
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
       console.log(TestArr); 
-      for(var i=0;i<15;i++){
-        var d= new Date(TestArr[i]["_id"]["Sub"]);
-      this.labels.push(d);}
+      //for(var i=0;i<15;i++){
+       // var d= new Date(TestArr[i]["_id"]["Sub"]);
+      //this.labels.push(d);}
       /*this.labels.push(new Date(TestArr[1]["_id"]["Sub"]).slice(0,10));
       this.labels.push( new Date(TestArr[2]["_id"]["Sub"]).slice(0,10));
       this.labels.push(new Date(TestArr[3]["_id"]["Sub"]).slice(0,10));
@@ -40,7 +42,7 @@ export class Test_In_IntervalComponent implements OnInit {
     responsive: true    // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
   }
    
- labels = [];
+ labels = ["mon","tue","wed","thu","fri"];
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
   chartData= [
@@ -54,7 +56,7 @@ export class Test_In_IntervalComponent implements OnInit {
       data: [33,33,11,9,23,98,43]
     },
     {
-      label:'Toatal',
+      label:'Teamc',
 
       data:[45,1,33,88,76,1,33,99]
     }

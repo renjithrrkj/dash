@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
 
+
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
@@ -22,12 +23,59 @@ export class GraphComponent implements OnInit {
   }
 
   
-  title = 'Test pass-fail chart  ';
+  //title = 'Test pass-fail chart  ';
 
   // ADD CHART OPTIONS. 
   chartOptions = {
-    responsive: true    // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    responsive: true  ,  // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    defaultFontSize	: 24,
+    scales: {
+      xAxes: [{
+          barPercentage: 0.7,
+          maxBarThickness: 45,
+          minBarLength: 2,
+          gridLines: {
+              offsetGridLines: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: "Time in Seconds",
+            fontColor: "red"
+          }
+          
+        
+          
+      }]
+      
+    },
+  title: {
+    display: true,
+    text:'Test pass-fail chart',
+    fontSize:50,
+    fontColor:'#000000'
+
+},
+legend: {
+  display: true,
+  labels: {
+      fontColor: 'rgb(255, 9, 132)',
+      fontSize:18
   }
+},
+layout: {
+  padding: {
+      left: 50,
+      right: 0,
+      top: 0,
+      bottom: 0
+  }
+ 
+
+  },
+  axisX:{
+    labelFontSize: 20,
+  }
+}
    
   labels = [];
 
@@ -43,7 +91,7 @@ export class GraphComponent implements OnInit {
       data: []
     },
     {
-      label:'Toatal',
+      label:'Total',
       data:[]
       
     }
@@ -53,13 +101,18 @@ export class GraphComponent implements OnInit {
   // CHART COLOR.
   colors = [
     { // 1st Year.
-      backgroundColor: 'rgba(22,1400,100,0.8)'
+      backgroundColor: 'rgba(22,400,100,0.8)',
+      hoverBackgroundColor:'rgba(22,400,100,0.9)',
+    
     },
     { // 2nd Year.
-      backgroundColor: 'rgba(2000, 19, 22, 0.8)'
+      backgroundColor: 'rgba(2000, 19, 22, 0.8)',
+      hoverBackgroundColor:'rgba(2000, 19, 22, 0.9)',
+      
     },
     {
-      backgroundColor: 'rgba(20, 19, 200, 0.8)'
+      backgroundColor: 'rgba(5, 19, 300, 0.8)',
+      hoverBackgroundColor:'rgba(5, 19, 300, 0.9)'
     }
   ]
   

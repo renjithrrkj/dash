@@ -1,12 +1,12 @@
 module.exports ={get_Daily:function(res)
     {
-    var Test_no;
+    
     var mongoUtil = require('./db');
     mongoUtil.connectToServer( function( err, client ) {
      if (err) console.log(err);
      var database = mongoUtil.getDb();
      var col =database.collection('tez');
-     var Team_date={};
+     var Team_date=[];
 
      col.aggregate([//to retrive the number of tests conducted in a day
         { "$group": {
@@ -56,7 +56,7 @@ module.exports ={get_Daily:function(res)
 
                     date_temp=val['_id']['Sub']
                     
-                    if( Object.keys(Team_date).includes({Team:team_name_temp,Date:date_temp}))//increment the value correspong to team name
+                    if( (Team_date).includes({"Team":team_name_temp,"Date":date_temp}))//increment the value correspong to team name
                     {
                           
                           Team_date[{Team:team_name_temp,Date:date_temp}]+= val['count'];
@@ -70,9 +70,9 @@ module.exports ={get_Daily:function(res)
                     {
         
         
-                           Team_date[{Team:team_name_temp,Date:date_temp}]=val['count'];
+                           Team_date["{Team:team_name_temp,Date:date_temp}"]=val['count'];
                            
-                          console.log(Team_date['{Team:team_name_temp,Date:date_temp}']) 
+                          console.log(Team_date[{Team:team_name_temp,Date:date_temp}]) 
                           console.log(Team_date);
          
                     }

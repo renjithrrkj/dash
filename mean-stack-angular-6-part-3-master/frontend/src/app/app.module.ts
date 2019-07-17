@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { ChartsModule } from 'ng2-charts'
+import { ChartsModule } from 'ng2-charts';
+
 
 //import { MatToolbarModule } from '@angular/material';
 
@@ -15,6 +16,7 @@ import {GraphComponent} from './components/graph/graph.component';
 import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {SampleListComponent} from './components/sample-list/sample-list.component';
 import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_Interval.component';
+
 
 import { IssueService } from './issue.service';
 
