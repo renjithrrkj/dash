@@ -44,6 +44,7 @@ module.exports ={get_Daily:function(res)
                     {
          
                         team_name_temp=val['_id']['Test'].split('/')[1];
+                        date_temp=val['_id']['Sub'] *1000;
                         
         
  
@@ -51,10 +52,11 @@ module.exports ={get_Daily:function(res)
                     else
                     {
                         team_name_temp=val['_id']['Test'].split('.')[2];
+                        date_temp=val['_id']['Sub'];
          
                     }
 
-                    date_temp=val['_id']['Sub']
+                    
                     
                     
                     
@@ -70,27 +72,48 @@ module.exports ={get_Daily:function(res)
              }
 
             //var sum=0;
-            for(var i of Team_date)
+            for(var i=0;i<Team_date.length-1;i++)
            /* {
                 sum += i["count"];
             }*/
             {
-                for(var j of Team_date)
+                for(var j=i+1;j<Team_date.length;j++)
                 {
-                    if((i["Team"]==j["Team"]))
-                        if(i["Date"]==j["Date"])
+                    if((Team_date[i]["Team"]==Team_date[j]["Team"])){
+                        if(Team_date[i]["Date"]==Team_date[j]["Date"])
                         {
-                           {
-                            i["count"]+=j["count"];
-                            var index= Team_date.indexOf(j);
-                            if(index>-1){
-                            Team_date.splice(index,1);  
-                            console.log(index);
-                            console.log(Team_date);    }                       
-                           }
-                        }
+                           
+                            Team_date[i]["count"]+=Team_date[j]["count"];
+                            
+                            Team_date.splice(j,1);  
+                            
+                            console.log(Team_date.length); 
+                            j=j-1;     
+
+                           
+                        }}
                 }
             }
+           //for(var i=0;i<Team_date.length;i++)
+           /* {
+                sum += i["count"];
+            }
+            {
+                for(var j=i+1;j<Team_date.length;j++)
+                {
+                    if((Team_date[i]["Team"]==Team_date[j]["Team"])){
+                        if(Team_date[i]["Date"]==Team_date[j]["Date"])
+                        {
+                           {
+                            Team_date[i]["count"]+=Team_date[j]["count"];
+                            
+                            Team_date.splice(j,1);  
+                            
+                            console.log(Team_date);                          
+                           }
+                        }}
+                }
+            }*/
             console.log(Team_date);
             res.json(Team_date);
             }

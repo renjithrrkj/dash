@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { FormsModule } from '@angular/forms';
+
+
 
 
 //import { MatToolbarModule } from '@angular/material';
@@ -48,7 +52,9 @@ const routes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     ChartsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgxDaterangepickerMd.forRoot(),
+    FormsModule
     
   ],
   providers: [IssueService],

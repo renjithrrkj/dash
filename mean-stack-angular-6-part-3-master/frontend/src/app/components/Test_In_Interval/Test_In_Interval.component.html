@@ -1,11 +1,13 @@
 <div class="col-md-12" style="background-color: #fff;">
 	 	<div style="padding:10px;">
 		 	<label>Time Scale</label>
-		 	<select id="category_faq">
+		 	<select id="">
 	             <option value="1">Days</option>
 	             <option value="2">Months</option>
 	             <option value="3">Years</option>
-	        </select>
+            </select>
+            <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"/>
+
  </div>
         
 <div  class="chart-container" style="position: relative; height:40vh; width:80vw">
@@ -14,7 +16,7 @@
         [chartType]="'line'"
         [datasets]="chartData"
         [options]="chartOptions"
-        [labels]="labels"
+        
         [legend]="true"
         [colors]="colors"
         (chartClick)="onChartClick($event)">

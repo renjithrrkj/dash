@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 
 import { IssueService } from '../../issue.service';
 import { Chart, ChartOptions } from 'chart.js';
-//import {ChartDataLabels} from 'chartjs-plugin-datalabels';
+import * as ChartLabel from 'chartjs-plugin-datalabels';
 
 
 @Component({
@@ -40,10 +40,29 @@ export class GraphComponent implements OnInit {
           gridLines: {
               offsetGridLines: true
           },
-          
-          
-        
-          
+          ticks: {
+            fontSize: 15
+           },
+           scaleLabel:{
+            display:true,
+          labelString:"Teams",
+          fontSize:15,
+          fontFamily:"Ariel"
+          },
+                  
+      }],
+      yAxes:[{
+        display:true,
+        scaleLabel:{
+          display:true,
+        labelString:"Number    of   latest   Tests",
+        fontSize:20,
+        fontFamily:"Ariel"
+        },
+        fontSize:24,
+        ticks: {
+          fontSize: 18
+         }
       }]
       
     },
@@ -53,17 +72,23 @@ export class GraphComponent implements OnInit {
     fontSize:40,
     fontColor:'#000000'
 
-},
-legend: {
-  display: true,
-  labels: {
+   },
+  tooltips:{
+  titleFontSize:20,
+  bodyFontSize:20,
+  titleFontFamily:'courier',
+  bodyFontFamily:'courier'
+   }, 
+  legend: {
+    display: true,
+    labels: {
       fontColor: 'rgb(1, 2, 1)',
       fontSize:18
   }
 },
 layout: {
   padding: {
-      left: 50,
+      left: 100,
       right: 0,
       top: 0,
       bottom: 0
@@ -76,6 +101,7 @@ layout: {
   }
 }
    
+//labels is teamname 
   labels = [];
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
@@ -103,21 +129,21 @@ layout: {
       backgroundColor: 'rgba(22,400,100,0.3)',
       hoverBackgroundColor:'rgba(22,400,100,0.9)',
       borderColor:'rgba(22,400,100,0.9)',
-      borderWidth:3
+      borderWidth:1
     
     },
     { // 2nd Year.
       backgroundColor: 'rgba(2000, 19, 22, 0.3)',
       hoverBackgroundColor:'rgba(2000, 19, 22, 0.9)',
       borderColor:'rgba(2000, 19, 22, 0.9)',
-      borderWidth:3
+      borderWidth:1
       
     },
     {
       backgroundColor: 'rgba(5, 19, 300, 0.3)',
       hoverBackgroundColor:'rgba(5, 19, 300, 0.9)',
       borderColor:'rgba(5, 19, 300, 0.9)',
-      borderWidth:3
+      borderWidth:1
     }
   ]
   

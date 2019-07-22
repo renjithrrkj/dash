@@ -36,6 +36,7 @@
     "mongoose": "^5.6.3",
     "ng-charts": "1.0.0-alpha",
     "ng2-charts": "2.3.0",
+    "ngx-daterangepicker-material": "^2.1.7",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.2",
     "rxjs-compat": "^6.5.2",
