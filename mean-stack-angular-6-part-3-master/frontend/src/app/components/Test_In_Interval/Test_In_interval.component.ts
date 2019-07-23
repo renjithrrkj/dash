@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import {DateRange} from '../date_range/date_range.component';
 import {Chart} from 'chart.js';
 import {Moment} from 'moment';
+
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -19,8 +21,9 @@ function getRandomColor() {
 })
 
 export class Test_In_IntervalComponent implements OnInit {
+  
 
-  constructor(private issueService: IssueService) { }
+constructor(private issueService: IssueService) { }
   //TeamsArr: object;
   
   
@@ -29,7 +32,6 @@ export class Test_In_IntervalComponent implements OnInit {
       console.log(TestArr); 
 
       for(var val of TestArr){
-
        var d= new Date(val["Date"]);
       // var m = d.toString;
        //d.slice(0,10);
@@ -67,17 +69,19 @@ export class Test_In_IntervalComponent implements OnInit {
       
        
       
-      
-
+   
       console.log(this.chartData);
+      console.log(this.selected);
      // this.chartData[1].data=Object.values(TeamsArr[2]);
      // this.chartData[2].data=Object.values(TeamsArr[0]);
     //this.labels= Object.keys(TeamsArr[0]);
     });
   }
+  
 
-  
-  
+  ngModelChange(event){
+    console.log(this.selected);
+  }
   
   // ADD CHART OPTIONS. 
   chartOptions = {
@@ -101,8 +105,8 @@ export class Test_In_IntervalComponent implements OnInit {
           }*/
           ticks: {
             fontSize: 15,
-            min :this.selected['startDate'],
-            max:this.selected['endDate']
+           min: DateRange.Select()['startDate']['_d'],
+           max: DateRange.Select()['endDate']['_d']
            },
           scaleLabel:{
             display:true,
@@ -150,7 +154,6 @@ export class Test_In_IntervalComponent implements OnInit {
   }
    
  labels = [];
-selected :{startDate: Moment, endDate: Moment};
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
   chartData= [{label:'Teams:'}];

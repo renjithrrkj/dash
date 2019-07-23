@@ -20,6 +20,7 @@ import {GraphComponent} from './components/graph/graph.component';
 import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {SampleListComponent} from './components/sample-list/sample-list.component';
 import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_Interval.component';
+import {DateRange} from './components/date_range/date_range.component';
 
 
 import { IssueService } from './issue.service';
@@ -45,7 +46,8 @@ const routes: Routes = [
     GraphComponent,
     TopBarComponent,
     SampleListComponent,
-    Test_In_IntervalComponent
+    Test_In_IntervalComponent,
+    DateRange
   ],
   imports: [
     BrowserModule,
