@@ -59,7 +59,7 @@ const routes: Routes = [
     FormsModule
     
   ],
-  providers: [IssueService],
+  providers: [IssueService,DateRange],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

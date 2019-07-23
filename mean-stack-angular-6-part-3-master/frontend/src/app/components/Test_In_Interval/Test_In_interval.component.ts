@@ -24,7 +24,7 @@ function getRandomColor() {
 export class Test_In_IntervalComponent implements OnInit {
   
 
-constructor(private issueService: IssueService) { }
+constructor(private issueService: IssueService,private daterange:DateRange) { }
   //TeamsArr: object;
   
   
@@ -189,7 +189,7 @@ constructor(private issueService: IssueService) { }
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
-    var s=DateRange.Select();
-    console.log(s);
+    console.log(this.daterange.selected);
+    
   }
 }
