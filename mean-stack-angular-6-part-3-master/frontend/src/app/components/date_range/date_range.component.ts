@@ -10,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
 
 export class DateRange implements OnInit
 {
+  constructor() { }
 
         selected: {startDate: Moment, endDate: Moment};
         ngOnInit()
         {
 
         }
+        
+        
         get Select(){
             return this.selected;
+        }
+        ngModelChange(event){
+          console.log(event);
         }
 }   

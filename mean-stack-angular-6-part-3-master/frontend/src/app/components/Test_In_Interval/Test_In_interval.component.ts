@@ -4,6 +4,7 @@ import {DateRange} from '../date_range/date_range.component';
 import {Chart} from 'chart.js';
 import {Moment} from 'moment';
 
+
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -30,18 +31,9 @@ constructor(private issueService: IssueService) { }
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
       console.log(TestArr); 
-
       for(var val of TestArr){
        var d= new Date(val["Date"]);
-      // var m = d.toString;
-       //d.slice(0,10);
-       //this.labels.push(d);
-       /*var c=val['count'];
-       console.log(c);
-       var dat =[{t:d,y: c}];
-       console.log(dat);
-       var k={label:val["Team"],data:dat};
-       console.log(k);*/
+      
        
 
            var colo=getRandomColor();
@@ -71,17 +63,13 @@ constructor(private issueService: IssueService) { }
       
    
       console.log(this.chartData);
-      console.log(this.selected);
-     // this.chartData[1].data=Object.values(TeamsArr[2]);
-     // this.chartData[2].data=Object.values(TeamsArr[0]);
-    //this.labels= Object.keys(TeamsArr[0]);
+     
+      
+    
     });
   }
   
 
-  ngModelChange(event){
-    console.log(this.selected);
-  }
   
   // ADD CHART OPTIONS. 
   chartOptions = {
@@ -105,8 +93,8 @@ constructor(private issueService: IssueService) { }
           }*/
           ticks: {
             fontSize: 15,
-           min: DateRange.Select()['startDate']['_d'],
-           max: DateRange.Select()['endDate']['_d']
+            //min: DateRange.Select()['startDate']['_d'],
+            //max: DateRange.Select()['endDate']['_d']
            },
           scaleLabel:{
             display:true,
@@ -150,7 +138,9 @@ constructor(private issueService: IssueService) { }
     bodyFontSize:20,
     titleFontFamily:'courier',
     bodyFontFamily:'courier'
-  }    
+  }   
+  
+  
   }
    
  labels = [];
@@ -199,5 +189,7 @@ constructor(private issueService: IssueService) { }
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
+    var s=DateRange.Select();
+    console.log(s);
   }
 }
