@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IssueService } from '../../issue.service';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
-import moment = require('moment');
 import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {
