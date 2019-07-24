@@ -1,5 +1,4 @@
 import {Moment} from 'moment';
-import moment = require('moment');
 import { Component, OnInit } from '@angular/core';
 
 @Component({

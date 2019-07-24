@@ -16,7 +16,7 @@ function getRandomColor() {
 @Component({
   selector: 'Test_Interval',
   templateUrl: './Test_In_Interval.component.html',
-  styleUrls: ['./Test_In_interval.component.css']
+  styleUrls: ['./Test_In_Interval.component.css']
 })
 
 export class Test_In_IntervalComponent implements OnInit {
@@ -47,6 +47,8 @@ export class Test_In_IntervalComponent implements OnInit {
            var col=getRandomColor();
            console.log(col);
            this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+
+           
            console.log(this.chartData);
            for(var i=0;i<this.chartData.length;i++)
            {
@@ -152,6 +154,7 @@ export class Test_In_IntervalComponent implements OnInit {
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
   chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{}]}];
+
     /*{
       label: 'TeamA',
       data: [{
@@ -180,15 +183,8 @@ export class Test_In_IntervalComponent implements OnInit {
     { 
       borderColor: 'rgba(0,0,0,0)',
       backgroundColor: 'rgba(0,0,0,0)'
-    },
-    { 
-      borderColor: 'rgba(2000, 19, 22, 0.8)',
-      backgroundColor: 'rgba(10,0,0,0.0)'
-    },
-    {
-      borderColor: 'rgba(20, 19, 200, 0.8)',
-      backgroundColor: 'rgba(0,0,0,0.0)'
     }
+    
   ]
   
   // CHART CLICK EVENT.
