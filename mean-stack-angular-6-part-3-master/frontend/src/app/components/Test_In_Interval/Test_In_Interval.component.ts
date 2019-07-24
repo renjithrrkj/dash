@@ -27,9 +27,12 @@ export class Test_In_IntervalComponent implements OnInit {
   
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
-      console.log(TestArr); 
       
-      for(var val of TestArr){      
+      var Arr=[]
+      Arr=TestArr;
+      console.log(Arr); 
+      
+      for(var val of Arr){      
        var d= new Date(val["Date"]);
       // var m = d.toString;
        //d.slice(0,10);
