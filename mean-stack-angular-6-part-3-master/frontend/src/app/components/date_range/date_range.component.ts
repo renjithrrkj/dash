@@ -27,5 +27,6 @@ export class DateRange implements OnInit
           console.log(this.Select);
           this.test.chartOptions.scales.xAxes[0].ticks.max=this.Select['endDate']['_d'];
           console.log(this.test.chartOptions.scales.xAxes[0].ticks.max);
+          this.test.ngOnInit();
         }
 }   

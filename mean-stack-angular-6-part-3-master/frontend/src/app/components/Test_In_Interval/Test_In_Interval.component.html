@@ -13,11 +13,10 @@
         
 <div  class="chart-container" style="position: relative; height:40vh; width:80vw">
     <canvas
-        baseChart
+        baseChart id="chart"
         [chartType]="'line'"
         [datasets]="chartData"
-        [options]="chartOptions"
-        
+        [options]="chartOptions"        
         [legend]="true"
         [colors]="colors"
         (chartClick)="onChartClick($event)">
