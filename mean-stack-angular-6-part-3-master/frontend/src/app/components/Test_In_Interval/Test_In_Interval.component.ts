@@ -42,9 +42,9 @@ export class Test_In_IntervalComponent implements OnInit {
        console.log(k);*/
        
 
-           var colo=getRandomColor();
-           console.log(colo);
-           this.chartData.push({label:val["Team"],borderColor:colo,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+           
+          
+           this.chartData.push({label:val["Team"],borderColor:getRandomColor(),backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
            console.log(this.chartData);
            for(var i=0;i<this.chartData.length;i++)
            {
