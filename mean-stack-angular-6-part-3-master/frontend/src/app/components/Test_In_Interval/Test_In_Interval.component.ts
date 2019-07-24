@@ -23,16 +23,15 @@ export class Test_In_IntervalComponent implements OnInit {
 
   constructor(private issueService: IssueService,private daterange:DateRange) { }
   //TeamsArr: object;
-  
-  
+    Arr:Array<any>;
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
       
-      var Arr=[]
-      Arr=TestArr;
-      console.log(Arr); 
       
-      for(var val of Arr){      
+      this.Arr=TestArr as Array<any>;
+      console.log(this.Arr); 
+      
+      for(var val of this.Arr){      
        var d= new Date(val["Date"]);
       // var m = d.toString;
        //d.slice(0,10);
@@ -154,7 +153,8 @@ export class Test_In_IntervalComponent implements OnInit {
  labels = [];
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
-  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]}];
+  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{}]}];
+
     /*{
       label: 'TeamA',
       data: [{
