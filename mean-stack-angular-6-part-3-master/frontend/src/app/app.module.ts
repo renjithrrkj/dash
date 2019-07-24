@@ -59,7 +59,7 @@ const routes: Routes = [
     FormsModule
     
   ],
-  providers: [IssueService,DateRange],
+  providers: [IssueService,DateRange,Test_In_IntervalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

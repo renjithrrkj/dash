@@ -21,7 +21,7 @@ function getRandomColor() {
 
 export class Test_In_IntervalComponent implements OnInit {
 
-  constructor(private issueService: IssueService,private daterange:DateRange) { }
+  constructor(private issueService: IssueService) { }
   //TeamsArr: object;
     Arr:Array<any>;
   ngOnInit() {
@@ -103,7 +103,9 @@ export class Test_In_IntervalComponent implements OnInit {
             source:'data'
           }*/
           ticks: {
-            fontSize: 15
+            fontSize: 15,
+            
+            max: new Date()
            },
           scaleLabel:{
             display:true,
@@ -190,6 +192,8 @@ export class Test_In_IntervalComponent implements OnInit {
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
-    console.log(this.daterange.selected);
+    
+   // this.chartOptions.scales.xAxes[0]['ticks']['max']=this.daterange['Select']['endDate']['_d'];
+
   }
 }

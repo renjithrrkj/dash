@@ -1,5 +1,6 @@
 import {Moment} from 'moment';
 import { Component, OnInit } from '@angular/core';
+import { Test_In_IntervalComponent } from '../Test_In_Interval/Test_In_Interval.component';
 
 @Component({
     selector: 'date_range',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class DateRange implements OnInit
 {
-  constructor() { }
+  constructor(private test:Test_In_IntervalComponent) { }
 
         selected: {startDate: Moment, endDate: Moment};
         ngOnInit()
@@ -23,5 +24,8 @@ export class DateRange implements OnInit
         }
         ngModelChange(event){
           console.log(event);
+          console.log(this.Select);
+          this.test.chartOptions.scales.xAxes[0].ticks.max=this.Select['endDate']['_d'];
+          console.log(this.test.chartOptions.scales.xAxes[0].ticks.max);
         }
 }   
