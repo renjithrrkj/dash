@@ -16,7 +16,7 @@ function getRandomColor() {
 @Component({
   selector: 'Test_Interval',
   templateUrl: './Test_In_Interval.component.html',
-  styleUrls: ['./Test_In_interval.component.css']
+  styleUrls: ['./Test_In_Interval.component.css']
 })
 
 export class Test_In_IntervalComponent implements OnInit {
