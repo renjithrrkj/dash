@@ -2,6 +2,8 @@ const express =require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
  var mongoUtil = require('./db');
+ var resolved =require('./resolver');
+ var No_Of_Tests = require('./No_Of_Tests');
 
 //const tez =require('./models/tez');
 var database = mongoUtil.getDb();
@@ -29,7 +31,12 @@ app.use(bodyParser.json());
 //connection.once('open', () => {
 //    console.log('mongodb tez database connection established successfully!');
 //});
- var result;
+ var result
+ 
+
+ var latestruns;
+
+ database.collection('tez').find({"TestScript":"attrqa.authtoken.AuthorizationToken_MIE"}).toArray(function(err,data){
  function queryinterval(){
  database.collection('tez').find({"RunId":"ZWYSA22H"}).toArray(function(err,data){
      
@@ -39,6 +46,27 @@ app.use(bodyParser.json());
  setInterval(queryinterval, 1500);
 
     //asynchronous ,res.json is excecuted before the promise is resolved
+
+ var col =database.collection('tez')
+  
+ /*col.aggregate(
+    [
+      { $sort: {  "TestScript": 1,"StartTime"
+      : 1} },
+      {
+        $group:
+          {
+            _id: "$TestScript",
+            
+            StartTime: { $last: "$StartTime" }
+          }
+      }
+    ]
+).toArray(function(err,latest){
+  
+   latestruns = latest;
+   console.log(latest);
+ })*/
 
 
 router.get("/tez",(req, res) => {
@@ -52,13 +80,15 @@ router.get("/tez",(req, res) => {
     
 });
 
-router.route('/tez/:id').get((req, res) => {
-    tez.findById(req.params.id, (err, issue) => {
-        if (err)
-            console.log(err);
-        else
-            res.json(issue);
-    });
+router.route('/Teams/daily').get((req, res) => {
+   var d= new Date(1562659727000);
+    console.log(d);
+    No_Of_Tests.get_Daily(res);
+});
+router.get('/Teams',(req,res)=>{
+     resolved.getTeam_name(res);
+    
+    //console.log(kr);
 });
 
 /*router.route('/issues/add').post((req, res) => {
@@ -105,7 +135,4 @@ app.use('/', router);
 
 app.listen(5000, () => console.log('Express server running on port 5000'));
 });
-
-function newFunction(database) {
-    database.collection('tez').findOne({ "TestScript": "attrqa.authtoken.AuthorizationToken_MIE" });
-}
+});
