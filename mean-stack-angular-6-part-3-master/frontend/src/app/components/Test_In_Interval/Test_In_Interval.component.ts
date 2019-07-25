@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
 import { DateRange } from '../date_range/date_range.component';
@@ -13,6 +14,8 @@ function getRandomColor() {
   return color;
 }
 
+
+
 @Component({
   selector: 'Test_Interval',
   templateUrl: './Test_In_Interval.component.html',
@@ -22,17 +25,22 @@ function getRandomColor() {
 export class Test_In_IntervalComponent implements OnInit {
 
   constructor(private issueService: IssueService) { }
+  @ViewChild(BaseChartDirective,{ static: true }) chart: BaseChartDirective;
   //TeamsArr: object;
+
     Arr:Array<any>;
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
       
-      
+      this.chart.update();
       this.Arr=TestArr as Array<any>;
       console.log(this.Arr); 
       
       for(var val of this.Arr){      
        var d= new Date(val["Date"]);
+       //var s =new Date(1555200000000);
+       
+       console.log(d);
       // var m = d.toString;
        //d.slice(0,10);
        //this.labels.push(d);
@@ -59,6 +67,7 @@ export class Test_In_IntervalComponent implements OnInit {
                       
                       this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
                       this.chartData.splice(j,1);
+                      j=j-1;
                   }
 
                 }
@@ -104,8 +113,9 @@ export class Test_In_IntervalComponent implements OnInit {
           }*/
           ticks: {
             fontSize: 15,
+            min:new Date(),
             
-           max: new Date()
+            max: new Date()
            },
           scaleLabel:{
             display:true,
