@@ -44,7 +44,7 @@ module.exports ={get_Daily:function(res)
                     {
          
                         team_name_temp=val['_id']['Test'].split('/')[1];
-                        date_temp=val['_id']['Sub'] *1000;
+                        date_temp=(val['_id']['Sub'] ) *1000;
                         
         
  

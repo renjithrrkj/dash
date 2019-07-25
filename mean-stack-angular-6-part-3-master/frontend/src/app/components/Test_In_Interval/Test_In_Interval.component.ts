@@ -105,7 +105,7 @@ export class Test_In_IntervalComponent implements OnInit {
           ticks: {
             fontSize: 15,
             
-            max: new Date()
+           max: new Date()
            },
           scaleLabel:{
             display:true,
