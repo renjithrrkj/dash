@@ -25,9 +25,9 @@ export class DateRange implements OnInit
         ngModelChange(event){
           console.log(event);
           console.log(this.Select);
-         this.test.chartOptions.scales.xAxes[0].ticks.min=this.Select['startDate']['_d'];
-         this.test.chartOptions.scales.xAxes[0].ticks.max=this.Select['endDate']['_d'];
-          console.log(this.test.chartOptions.scales.xAxes[0].ticks.max);
-          this.test.ngOnInit();
+        // this.test.chartOptions.scales.xAxes[0].time.min=this.Select['startDate']['_d'];
+       // this.test.chartOptions.scales.xAxes[0].time.max=this.Select['endDate']['_d'];
+         // console.log(this.test.chartOptions.scales.xAxes[0].time.max);
+          this.test.chart.chart.update();
         }
 }   

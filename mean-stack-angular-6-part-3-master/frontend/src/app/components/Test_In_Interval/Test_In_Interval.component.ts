@@ -3,7 +3,7 @@ import { IssueService } from '../../issue.service';
 import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
-import { DateRange } from '../date_range/date_range.component';
+//import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -24,15 +24,15 @@ function getRandomColor() {
 
 export class Test_In_IntervalComponent implements OnInit {
 
-  constructor(private issueService: IssueService) { }
-  @ViewChild(BaseChartDirective,{ static: true }) chart: BaseChartDirective;
+  constructor(private issueService: IssueService,/*private daterange:DateRange*/) { }
+  @ViewChild(BaseChartDirective,{ static: true }) public chart: BaseChartDirective;
   //TeamsArr: object;
 
     Arr:Array<any>;
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
       
-      this.chart.update();
+      
       this.Arr=TestArr as Array<any>;
       console.log(this.Arr); 
       
@@ -87,8 +87,9 @@ export class Test_In_IntervalComponent implements OnInit {
     //this.labels= Object.keys(TeamsArr[0]);
     });
   }
-
   
+
+  selected: {startDate: Moment, endDate: Moment};
   
   
   // ADD CHART OPTIONS. 
@@ -105,7 +106,9 @@ export class Test_In_IntervalComponent implements OnInit {
           type: 'time',
           
           time: {
-            unit: 'day',
+            unit: 'month',
+           min:new Date(1555200000000),            
+           max: new Date()
               
           },
          /* ticks:{
@@ -113,9 +116,7 @@ export class Test_In_IntervalComponent implements OnInit {
           }*/
           ticks: {
             fontSize: 15,
-            min:new Date(),
             
-            max: new Date()
            },
           scaleLabel:{
             display:true,
@@ -203,7 +204,34 @@ export class Test_In_IntervalComponent implements OnInit {
   onChartClick(event) {
     console.log(event);
     
-   // this.chartOptions.scales.xAxes[0]['ticks']['max']=this.daterange['Select']['endDate']['_d'];
+   this.chartOptions.scales.xAxes[0].time.max= this.selected['endDate']['_d'];
+   console.log(this.chartOptions.scales.xAxes[0].time.max);
+   this.chartOptions.scales.xAxes[0].time.unit ='day';
+   this.chart.options.scales.xAxes[0].time.unit="day";
+   this.chartData.pop();
 
+
+
+   //this.chart.chart. //scales.xAxes[0].time.unit='day';
+
+    //this.chart.chart;
+   this.chart.chart.render();
+   console.log(this.chartData);
+
+  }
+  ngModelChange(event){
+    console.log(event);
+    this.chartOptions.scales.xAxes[0].time.max= this.selected['endDate']['_d'];
+    this.chartOptions.scales.xAxes[0].time.unit='month';
+    console.log(this.selected);
+    console.log(this.chartOptions.scales.xAxes[0].time.max);
+   // this.chart.options.scales.xAxes[];
+   this.chartData.pop();
+
+    
+    this.chart.chart.update();
+    console.log(this.chart.chart);
+
+    
   }
 }

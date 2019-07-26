@@ -1,7 +1,15 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.2.0/css/font-awesome.min.css" />
+<div class="row">
+  <div class="column">
 <a [routerLink]="['/bar']">
 
   <h1><i class="fas fa-tachometer-alt"></i>Dashboard</h1>
 </a>
-<a [routerLink]="['/graph']" class="button fancy-button"><i class="fas fa-chart-bar"></i>Latests tests</a>
-<a [routerLink]="['/Test_Interval']" class="button fancy-button"><i class="glyphicon glyphicon-stats"></i>Test History</a>
+</div>
+</div>
+<div class ="navigate">
+<div class="row">
+<div class="column"><a [routerLink]="['/graph']" ><i class="fas fa-chart-bar"></i>Latests tests</a></div>
+<div class="column"><a [routerLink]="['/Test_Interval']" ><i class="glyphicon glyphicon-stats"></i>Test History</a></div>
+</div>
+</div>
