@@ -5,6 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatInputModule} from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 
 
 
@@ -21,9 +29,11 @@ import {TopBarComponent} from './components/top-bar/top-bar.component';
 import {SampleListComponent} from './components/sample-list/sample-list.component';
 import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_Interval.component';
 import {DateRange} from './components/date_range/date_range.component';
+import {DashboardComponent} from  './components/dashboard/dashboard.component';
 
 
 import { IssueService } from './issue.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const routes: Routes = [
   { path: 'create', component: CreateComponent},
@@ -33,7 +43,8 @@ const routes: Routes = [
   {path: 'graph', component:GraphComponent },
   {path:'sampleList',component:SampleListComponent},
   {path:'bar', component:TopBarComponent},
-  {path:'Test_Interval',component:Test_In_IntervalComponent}
+  {path:'Test_Interval',component:Test_In_IntervalComponent},
+  {path:'dashboard',component:DashboardComponent}
 
 ];
 
@@ -47,7 +58,8 @@ const routes: Routes = [
     TopBarComponent,
     SampleListComponent,
     Test_In_IntervalComponent,
-    DateRange
+    DateRange,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +68,14 @@ const routes: Routes = [
     ChartsModule,
     RouterModule.forRoot(routes),
     NgxDaterangepickerMd.forRoot(),
-    FormsModule
+    FormsModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatTabsModule
     
   ],
   providers: [IssueService,DateRange,Test_In_IntervalComponent],

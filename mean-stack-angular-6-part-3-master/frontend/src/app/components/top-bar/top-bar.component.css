@@ -26,3 +26,12 @@ app-top-bar {
     display: table;
     clear: both;
   }
+  .example-stretched-tabs {
+    max-width: 800px;
+    color: rgba(226, 209, 209, 0.801);
+    background-color: #c0e73e;
+    height: 50px;
+    align-self: stretch;
+    bottom: 0;
+    
+  }

@@ -89,7 +89,10 @@ export class Test_In_IntervalComponent implements OnInit {
   }
   
 
-  selected: {startDate: Moment, endDate: Moment};
+  selectedStartDate= new Date(1555200000000);
+  selectedEndDate= new Date();
+
+  TimeScale ='day';
   
   
   // ADD CHART OPTIONS. 
@@ -106,9 +109,9 @@ export class Test_In_IntervalComponent implements OnInit {
           type: 'time',
           
           time: {
-            unit: 'month',
-           min:new Date(1555200000000),            
-           max: new Date()
+            unit: 'day',
+           min: this.selectedStartDate,           
+           max: this.selectedEndDate
               
           },
          /* ticks:{
@@ -149,7 +152,7 @@ export class Test_In_IntervalComponent implements OnInit {
   },
   layout: {
     padding: {
-        left: 100,
+        left: 10,
         right: 0,
         top: 0,
         bottom: 0
@@ -199,39 +202,46 @@ export class Test_In_IntervalComponent implements OnInit {
     }
     
   ]
+
+  
   
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
     
-   this.chartOptions.scales.xAxes[0].time.max= this.selected['endDate']['_d'];
-   console.log(this.chartOptions.scales.xAxes[0].time.max);
-   this.chartOptions.scales.xAxes[0].time.unit ='day';
-   this.chart.options.scales.xAxes[0].time.unit="day";
-   this.chartData.pop();
+    
+   console.log(this.TimeScale);
+   this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+   this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
+   console.log(this.selectedEndDate);
+   
+   this.chart.ngOnInit();
 
-
-
-   //this.chart.chart. //scales.xAxes[0].time.unit='day';
-
-    //this.chart.chart;
-   this.chart.chart.render();
-   console.log(this.chartData);
-
+  }
+   
+  onDate(event){
+    console.log(event);
+    this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
+    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
+    this.chart.ngOnInit();
   }
   ngModelChange(event){
     console.log(event);
-    this.chartOptions.scales.xAxes[0].time.max= this.selected['endDate']['_d'];
-    this.chartOptions.scales.xAxes[0].time.unit='month';
-    console.log(this.selected);
-    console.log(this.chartOptions.scales.xAxes[0].time.max);
-   // this.chart.options.scales.xAxes[];
-   this.chartData.pop();
-
+    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
     
+    //console.log(this.selected);
+    //console.log(this.chartOptions.scales.xAxes[0].time.max);
+   // this.chart.options.scales.xAxes[];
+    //this.chartData.pop();
+   
+  
     this.chart.chart.update();
+    console.log(this.chartOptions.scales.xAxes[0].time.min)
     console.log(this.chart.chart);
 
     
   }
+
 }
