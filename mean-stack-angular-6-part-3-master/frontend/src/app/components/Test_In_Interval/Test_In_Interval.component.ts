@@ -152,7 +152,7 @@ export class Test_In_IntervalComponent implements OnInit {
   },
   layout: {
     padding: {
-        left: 10,
+        left: 150,
         right: 0,
         top: 0,
         bottom: 0
@@ -210,38 +210,24 @@ export class Test_In_IntervalComponent implements OnInit {
     console.log(event);
     
     
-   console.log(this.TimeScale);
-   this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
-   this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
-   console.log(this.selectedEndDate);
-   
-   this.chart.ngOnInit();
+ 
 
   }
    
-  onDate(event){
+
+  onClick(event)
+  {
     console.log(event);
+    
+    
+    console.log(this.TimeScale);
+    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
     this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
-    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
-    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
+    console.log(this.selectedEndDate);
+    
     this.chart.ngOnInit();
-  }
-  ngModelChange(event){
-    console.log(event);
-    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
-    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
-    
-    //console.log(this.selected);
-    //console.log(this.chartOptions.scales.xAxes[0].time.max);
-   // this.chart.options.scales.xAxes[];
-    //this.chartData.pop();
-   
-  
-    this.chart.chart.update();
-    console.log(this.chartOptions.scales.xAxes[0].time.min)
-    console.log(this.chart.chart);
 
-    
   }
 
 }

@@ -24,7 +24,7 @@
 <mat-form-field>
     <input matInput [matDatepicker]="picker" placeholder="Choose a startDate" [(ngModel)]="selectedStartDate" >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker [(ngModel)]="selectedStartDate" ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+    <mat-datepicker #picker [(ngModel)]="selectedStartDate" ngDefaultControl ></mat-datepicker>
   </mat-form-field>
 </div>
   
@@ -35,9 +35,9 @@
  
     <input matInput [matDatepicker]="picker1" placeholder="Choose a endDate" [(ngModel)]="selectedEndDate">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1 [(ngModel)]="selectedEndDate" ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+    <mat-datepicker #picker1 [(ngModel)]="selectedEndDate" ngDefaultControl ></mat-datepicker>
   </mat-form-field>
-  <button mat-mini-fab color="primary">Apply</button>
+  <button mat-mini-fab color="primary" (click)="onClick($event)">Apply</button>
 </div>
  </div>
 </mat-sidenav>   
@@ -45,7 +45,7 @@
         <p><button mat-button (click)="sidenav.toggle()"><i class="material-icons" style="color: aliceblue">
                 event
                 </i>TimeScale</button></p>
-        <div  class="chart-container" style="position: relative; height:30vh; width:80vw">
+        <div  class="chart-container" style="position: relative; height:40vh; width:80vw">
                 <canvas
                     baseChart class="chart"
                     [chartType]="'line'"
