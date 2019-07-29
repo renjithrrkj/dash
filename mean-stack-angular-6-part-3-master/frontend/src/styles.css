@@ -123,6 +123,7 @@ body { margin: 0; }
   
   app-top-bar h1 {
     color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin: 0;
   }
   

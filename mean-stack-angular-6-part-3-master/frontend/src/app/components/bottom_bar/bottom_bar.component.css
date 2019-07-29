@@ -1,11 +1,12 @@
 .example-stretched-tabs {
     max-width: 100%;
-    color: rgba(226, 209, 209, 0.801);
-    background-color: #bfa2f0;
+    color: rgb(246, 250, 249);
+    background-color: #d6cadd;
     height: 50px;
     align-self: stretch;
     bottom: 0;
-    box-shadow: 5px 5px 20px inset;
-    box-shadow: 3px 3px 20px;
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
         
   }

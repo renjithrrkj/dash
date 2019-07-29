@@ -3,7 +3,9 @@
     <a mat-tab-link *ngFor="let link of links"
        (click)="activeLink = link"
        [active]="activeLink == link"
-       [routerLink]="'/'+link"> {{link}} 
+       [routerLink]="'/'+link" style="color:#673ab7"><i class="material-icons" style="color: #673ab7">
+        assessment
+        </i> {{link}} 
       </a>
     
   </nav>
