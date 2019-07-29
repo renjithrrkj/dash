@@ -1,9 +1,11 @@
 .example-container {
     position: absolute;
+    top:10;
    
   left: 0;
   right: 0;
   height:100%;
+  box-shadow: 3px 3px 20px inset;
     
  
   }

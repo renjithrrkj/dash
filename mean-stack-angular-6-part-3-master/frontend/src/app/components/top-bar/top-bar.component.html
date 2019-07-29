@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.2.0/css/font-awesome.min.css" />
 
 
-<a [routerLink]="['/']">
+<a [routerLink]="['/dashboard']">
 
   <i class="material-icons" style="color: aliceblue ;font-size:60px"> dashboard</i>
       
@@ -9,14 +9,6 @@
 </a>
 
 
-<nav mat-tab-nav-bar [backgroundColor]="background"  mat-align-tabs="center" class="example-stretched-tabs mat-elevation-z4" >
-    <a mat-tab-link *ngFor="let link of links"
-       (click)="activeLink = link"
-       [active]="activeLink == link"
-       [routerLink]="'/'+link"> {{link}} 
-      </a>
-    
-  </nav>
 
 
 
