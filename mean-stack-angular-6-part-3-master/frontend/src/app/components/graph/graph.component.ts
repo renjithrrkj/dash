@@ -41,7 +41,7 @@ export class GraphComponent implements OnInit {
               offsetGridLines: true
           },
           ticks: {
-            fontSize: 15
+            fontSize: 13
            },
            scaleLabel:{
             display:true,
@@ -90,7 +90,7 @@ export class GraphComponent implements OnInit {
 layout: {
   padding: {
       left: 40,
-      right: 0,
+      right: 40,
       top: 0,
       bottom: 0
   }
