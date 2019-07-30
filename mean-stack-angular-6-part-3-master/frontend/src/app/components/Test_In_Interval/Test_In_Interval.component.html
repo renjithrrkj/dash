@@ -1,12 +1,16 @@
 
         <mat-sidenav-container   style="background-color: #fff;"class="example-container" >
+
         <mat-sidenav #sidenav mode="side"  class="side-nav"  >
+
                 <h2 style="color: rgb(21, 21, 22) ; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"></h2>
              
 	          <div style="padding:10px">
              <mat-form-field>
                 <mat-label> Select a TimeScale</mat-label>
-                <mat-select [(value)]="TimeScale"  style="left:500px;">
+
+                <mat-select [(value)]="TimeScale" >
+
                   <mat-option>None</mat-option>
                   <mat-option value="day">day</mat-option>
                   <mat-option value="month">month</mat-option>
