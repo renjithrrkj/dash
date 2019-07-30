@@ -14,9 +14,9 @@ export class IssueService {
     return this.http.get(`${this.uri}/tez`);
   }
 
-  getIssueById(id) {
-    return this.http.get(`${this.uri}/issues/${id}`);
-  }
+ // getIssueById(id) {
+  //  return this.http.get(`${this.uri}/issues/${id}`);
+  //}
 
   /*addIssue(title, responsible, description, severity) {
     const issue = {

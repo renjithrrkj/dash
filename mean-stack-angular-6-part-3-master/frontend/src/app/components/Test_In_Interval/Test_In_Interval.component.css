@@ -1,6 +1,6 @@
 .example-container {
-    position: absolute;
-    top:10;
+    position: relative;
+    top:0;
    
   left: 0;
   right: 0;
@@ -12,5 +12,6 @@
   .side-nav{
       bottom:0;
       height:100%;
-      background-color: rgba(229, 233, 223, 0.691)
+      background-color: rgba(229, 233, 223, 0.691);
+      
   }

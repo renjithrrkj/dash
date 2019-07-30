@@ -61,7 +61,7 @@ body { margin: 0; }
     border-radius: 2px;
     padding: 8px;
     margin-bottom: 16px;
-    border: 1px solid #BDBDBD;
+    border: 1px solid rgb(251, 245, 245);
   }
   
   label {
