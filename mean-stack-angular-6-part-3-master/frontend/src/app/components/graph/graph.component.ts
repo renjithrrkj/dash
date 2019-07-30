@@ -46,8 +46,9 @@ export class GraphComponent implements OnInit {
            scaleLabel:{
             display:true,
           labelString:"Teams",
-          fontSize:15,
+          fontSize:14,
           fontFamily:"Ariel"
+          
           },
                   
       }],
@@ -55,8 +56,8 @@ export class GraphComponent implements OnInit {
         display:true,
         scaleLabel:{
           display:true,
-        labelString:"Number    of   latest   Tests",
-        fontSize:20,
+        labelString:"Number of latest Tests",
+        fontSize:15,
         fontFamily:"Ariel"
         },
         fontSize:24,
@@ -69,7 +70,7 @@ export class GraphComponent implements OnInit {
   title: {
     display: true,
     text:'Test pass-fail chart',
-    fontSize:20,
+    fontSize:15,
     fontColor:'#000000'
 
    },
@@ -88,7 +89,7 @@ export class GraphComponent implements OnInit {
 },
 layout: {
   padding: {
-      left: 100,
+      left: 40,
       right: 0,
       top: 0,
       bottom: 0

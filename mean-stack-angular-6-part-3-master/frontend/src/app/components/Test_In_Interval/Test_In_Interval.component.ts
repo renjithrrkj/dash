@@ -136,8 +136,9 @@ export class Test_In_IntervalComponent implements OnInit {
          scaleLabel:{
           display:true,
         labelString:"Number    of    Tests   Excecuted",
-        fontSize:20,
-        fontFamily:"Ariel"
+        fontSize:15,
+        fontFamily:"Ariel",
+        
         },
 
       }]
@@ -153,9 +154,9 @@ export class Test_In_IntervalComponent implements OnInit {
   layout: {
     padding: {
         left: 150,
-        right: 0,
-        top: 0,
-        bottom: 0
+        right: 85,
+        top: 5,
+        bottom: 9
          }
       },
   tooltips:{
