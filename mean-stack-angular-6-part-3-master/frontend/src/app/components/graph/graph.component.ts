@@ -69,7 +69,7 @@ export class GraphComponent implements OnInit {
   title: {
     display: true,
     text:'Test pass-fail chart',
-    fontSize:40,
+    fontSize:20,
     fontColor:'#000000'
 
    },

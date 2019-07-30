@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { IssueService } from '../../issue.service';
+import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
-import { DateRange } from '../date_range/date_range.component';
+//import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -13,6 +14,8 @@ function getRandomColor() {
   return color;
 }
 
+
+
 @Component({
   selector: 'Test_Interval',
   templateUrl: './Test_In_Interval.component.html',
@@ -21,8 +24,10 @@ function getRandomColor() {
 
 export class Test_In_IntervalComponent implements OnInit {
 
-  constructor(private issueService: IssueService,private daterange:DateRange) { }
+  constructor(private issueService: IssueService,/*private daterange:DateRange*/) { }
+  @ViewChild(BaseChartDirective,{ static: true }) public chart: BaseChartDirective;
   //TeamsArr: object;
+
     Arr:Array<any>;
   ngOnInit() {
     this.issueService.get_Test_History().subscribe((TestArr) => {
@@ -33,6 +38,9 @@ export class Test_In_IntervalComponent implements OnInit {
       
       for(var val of this.Arr){      
        var d= new Date(val["Date"]);
+       //var s =new Date(1555200000000);
+       
+       console.log(d);
       // var m = d.toString;
        //d.slice(0,10);
        //this.labels.push(d);
@@ -59,6 +67,7 @@ export class Test_In_IntervalComponent implements OnInit {
                       
                       this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
                       this.chartData.splice(j,1);
+                      j=j-1;
                   }
 
                 }
@@ -78,8 +87,12 @@ export class Test_In_IntervalComponent implements OnInit {
     //this.labels= Object.keys(TeamsArr[0]);
     });
   }
-
   
+
+  selectedStartDate= new Date(1555200000000);
+  selectedEndDate= new Date();
+
+  TimeScale ='day';
   
   
   // ADD CHART OPTIONS. 
@@ -97,13 +110,16 @@ export class Test_In_IntervalComponent implements OnInit {
           
           time: {
             unit: 'day',
+           min: this.selectedStartDate,           
+           max: this.selectedEndDate
               
           },
          /* ticks:{
             source:'data'
           }*/
           ticks: {
-            fontSize: 15
+            fontSize: 15,
+            
            },
           scaleLabel:{
             display:true,
@@ -136,7 +152,7 @@ export class Test_In_IntervalComponent implements OnInit {
   },
   layout: {
     padding: {
-        left: 100,
+        left: 150,
         right: 0,
         top: 0,
         bottom: 0
@@ -186,10 +202,32 @@ export class Test_In_IntervalComponent implements OnInit {
     }
     
   ]
+
+  
   
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
-    console.log(this.daterange.selected);
+    
+    
+ 
+
   }
+   
+
+  onClick(event)
+  {
+    console.log(event);
+    
+    
+    console.log(this.TimeScale);
+    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
+    this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
+    console.log(this.selectedEndDate);
+    
+    this.chart.ngOnInit();
+
+  }
+
 }

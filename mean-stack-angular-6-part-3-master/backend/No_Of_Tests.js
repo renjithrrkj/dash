@@ -15,7 +15,7 @@ module.exports ={get_Daily:function(res)
            Sub:{ "$subtract": ["$StartTime",
               { "$mod": [
                "$StartTime",
-               1000* 60 * 60 * 24
+                60 * 60 * 24
             ]}] }
                                                                
                  
@@ -37,6 +37,7 @@ module.exports ={get_Daily:function(res)
         {
             var team_name_temp;
             var date_temp;
+            console.log(Days_tests);
             for(var val of Days_tests)//traverse recived array for objects
             {
     
@@ -44,7 +45,7 @@ module.exports ={get_Daily:function(res)
                     {
          
                         team_name_temp=val['_id']['Test'].split('/')[1];
-                        date_temp=val['_id']['Sub'] *1000;
+                        date_temp=val['_id']['Sub'] //*1000;
                         
         
  
@@ -55,6 +56,7 @@ module.exports ={get_Daily:function(res)
                         date_temp=val['_id']['Sub'];
          
                     }
+                    
 
                     
                     

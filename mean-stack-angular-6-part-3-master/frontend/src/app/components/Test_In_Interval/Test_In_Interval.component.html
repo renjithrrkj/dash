@@ -1,25 +1,61 @@
-<div class="col-md-12" style="background-color: #fff;">
-	 	<div style="padding:10px;">
-		 	<label>Time Scale</label>
-		 	<select id="">
-	             <option value="1">Days</option>
-	             <option value="2">Months</option>
-	             <option value="3">Years</option>
-            </select>
-            <date_range></date_range>
-          
 
+        <mat-sidenav-container   style="background-color: #fff;"class="example-container" >
+        <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="side-nav" >
+                <h2 style="color: rgb(21, 21, 22) ; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"></h2>
+             
+	 	<div style="padding:10px;">
+            <div style="padding:10px;">
+             <mat-form-field>
+                <mat-label> Select a TimeScale</mat-label>
+                <mat-select [(value)]="TimeScale" (change)="onChangeEvent($event)">
+                  <mat-option>None</mat-option>
+                  <mat-option value="day">day</mat-option>
+                  <mat-option value="month">month</mat-option>
+                  <mat-option value="year">year</mat-option>
+                </mat-select>
+              </mat-form-field>         
+            
+            </div>
+
+
+
+
+ <div style="padding:10px;"> 
+<mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a startDate" [(ngModel)]="selectedStartDate" >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker [(ngModel)]="selectedStartDate" ngDefaultControl ></mat-datepicker>
+  </mat-form-field>
+</div>
+  
+
+<div style="padding:10px;"> 
+
+<mat-form-field>
+ 
+    <input matInput [matDatepicker]="picker1" placeholder="Choose a endDate" [(ngModel)]="selectedEndDate">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1 [(ngModel)]="selectedEndDate" ngDefaultControl ></mat-datepicker>
+  </mat-form-field>
+  <button mat-mini-fab color="primary" (click)="onClick($event)">Apply</button>
+</div>
  </div>
-        
-<div  class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas
-        baseChart
-        [chartType]="'line'"
-        [datasets]="chartData"
-        [options]="chartOptions"
-        
-        [legend]="true"
-        [colors]="colors"
-        (chartClick)="onChartClick($event)">
-    </canvas>
-    </div>
+</mat-sidenav>   
+<mat-sidenav-content>
+        <p><button mat-button (click)="sidenav.toggle()"><i class="material-icons" style="color: aliceblue">
+                event
+                </i>TimeScale</button></p>
+        <div  class="chart-container" style="position: relative; height:40vh; width:85vw">
+                <canvas
+                    baseChart class="chart"
+                    [chartType]="'line'"
+                    [datasets]="chartData"
+                    [options]="chartOptions"        
+                    [legend]="true"
+                    [colors]="colors"
+                    (chartClick)="onChartClick($event)">
+                </canvas>
+                </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
