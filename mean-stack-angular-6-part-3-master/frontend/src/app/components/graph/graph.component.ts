@@ -101,7 +101,7 @@ export class GraphComponent implements OnInit {
     display: true,
     labels: {
       fontColor: 'rgb(1, 2, 1)',
-      fontSize:18
+      fontSize:12
   }
 },
 layout: {
