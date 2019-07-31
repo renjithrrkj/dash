@@ -29,6 +29,7 @@ import {SampleListComponent} from './components/sample-list/sample-list.componen
 import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_Interval.component';
 import {DashboardComponent} from  './components/dashboard/dashboard.component';
 import {Bottom_barComponent} from './components/bottom_bar/bottom_bar.component';
+import {Pie_ChartComponent} from './components/pie_chart/pie_chart.component';
 
 
 import { IssueService } from './issue.service';
@@ -51,7 +52,8 @@ const routes: Routes = [
     SampleListComponent,
     Test_In_IntervalComponent,
     DashboardComponent,
-    Bottom_barComponent
+    Bottom_barComponent,
+    Pie_ChartComponent
   ],
   imports: [
     BrowserModule,
