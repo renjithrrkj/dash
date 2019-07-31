@@ -3,6 +3,8 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { IssueService } from '../../issue.service';
 import { Chart, ChartOptions } from 'chart.js';
 import * as ChartLabel from 'chartjs-plugin-datalabels';
+import * as data from './avoided.json';
+
 
 
 @Component({
@@ -18,10 +20,25 @@ export class GraphComponent implements OnInit {
   ngOnInit() {
     this.issueService.getPass_Per_Team().subscribe((TeamsArr) => {
       console.log(TeamsArr);
+      var val  ;
+      console.log(data['default']);
+      for(val of Object.values(data['default']))
+       {
+        if( Object.keys(TeamsArr[0]).indexOf(val))
+         {
+           console.log(val);
+          delete TeamsArr[0][val];
+          delete TeamsArr[1][val];
+          delete TeamsArr[2][val];
+          console.log(TeamsArr);
+          
+         }
+       }
       this.chartData[0].data=Object.values(TeamsArr[1]);
       this.chartData[1].data=Object.values(TeamsArr[2]);
       this.chartData[2].data=Object.values(TeamsArr[0]);
     this.labels= Object.keys(TeamsArr[0]);
+     
     });
   }
 
@@ -41,7 +58,7 @@ export class GraphComponent implements OnInit {
               offsetGridLines: true
           },
           ticks: {
-            fontSize: 15
+            fontSize: 13
            },
            scaleLabel:{
             display:true,
@@ -90,7 +107,7 @@ export class GraphComponent implements OnInit {
 layout: {
   padding: {
       left: 40,
-      right: 0,
+      right: 40,
       top: 0,
       bottom: 0
   }

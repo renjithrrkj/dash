@@ -34,6 +34,7 @@ export class Test_In_IntervalComponent implements OnInit {
       
       
       this.Arr=TestArr as Array<any>;
+      this.Arr.pop();
       console.log(this.Arr); 
       
       for(var val of this.Arr){      
@@ -41,6 +42,7 @@ export class Test_In_IntervalComponent implements OnInit {
        //var s =new Date(1555200000000);
        
        console.log(d);
+
       // var m = d.toString;
        //d.slice(0,10);
        //this.labels.push(d);
@@ -216,7 +218,8 @@ export class Test_In_IntervalComponent implements OnInit {
   }
    
 
-  onClick(event)
+  onClick(event)//trigers the event to modify the time range in  graph
+  
   {
     console.log(event);
     

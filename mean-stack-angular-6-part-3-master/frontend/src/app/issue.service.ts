@@ -51,4 +51,6 @@ export class IssueService {
   {
     return this.http.get(`${this.uri}/Teams/daily`);
   }
+
+ 
 }
