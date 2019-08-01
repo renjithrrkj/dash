@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
  var mongoUtil = require('./db');
  var resolved =require('./resolver');
  var No_Of_Tests = require('./No_Of_Tests');
+ var No_Of_Tests_Month =require('./No_Of_Test_Month');
 
 //const tez =require('./models/tez');
 var database = mongoUtil.getDb();
@@ -90,6 +91,12 @@ router.get('/Teams',(req,res)=>{
     
     //console.log(kr);
 });
+
+router.route('/Teams/monthly').get((req, res) => {
+    var d= new Date(1562659727000);
+     console.log(d);
+     No_Of_Tests_Month.get_Daily(res);
+ });
 
 /*router.route('/issues/add').post((req, res) => {
     let issue = new Issue(req.body);

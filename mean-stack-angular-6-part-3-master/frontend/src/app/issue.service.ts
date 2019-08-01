@@ -51,6 +51,10 @@ export class IssueService {
   {
     return this.http.get(`${this.uri}/Teams/daily`);
   }
+  get_Test_History_Month()
+  {
+    return this.http.get(`${this.uri}/Teams/monthly`);
+  }
 
  
 }

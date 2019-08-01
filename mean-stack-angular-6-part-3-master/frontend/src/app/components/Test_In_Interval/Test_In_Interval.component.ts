@@ -5,7 +5,7 @@ import {Chart} from 'chart.js';
 import { Moment } from 'moment';
 //import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
-function getRandomColor() {
+function getRandomColor() {//function to generate random colours for labels
   var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
@@ -30,39 +30,38 @@ export class Test_In_IntervalComponent implements OnInit {
 
     Arr:Array<any>;
   ngOnInit() {
-    this.issueService.get_Test_History().subscribe((TestArr) => {
+    if(this.TimeScale=='day')
+    {
+      this.chartData.splice(1);
+
+
+    this.issueService.get_Test_History().subscribe((TestArr) => {   //retrive the array of teams test data
       
       
-      this.Arr=TestArr as Array<any>;
-      this.Arr.pop();
-      this.Arr.sort(function(a,b){
-        return a.Date-b.Date
-      })
-      console.log(this.Arr); 
+      this.Arr=TestArr as Array<any>;//convert object to array
+      this.Arr.pop();//last  element is irrelevant
+      this.Arr.sort(function(a,b){//sort array to prevent date jumbling in chart
+             return a.Date-b.Date
+             })
+
+
+
+      console.log(this.Arr ); 
       
-      for(var val of this.Arr){      
+       for(var val of this.Arr){      
        var d= new Date(val["Date"]);
-       //var s =new Date(1555200000000);
+      
        
        console.log(d);
 
-      // var m = d.toString;
-       //d.slice(0,10);
-       //this.labels.push(d);
-       /*var c=val['count'];
-       console.log(c);
-       var dat =[{t:d,y: c}];
-       console.log(dat);
-       var k={label:val["Team"],data:dat};
-       console.log(k);*/
-       
+         
 
            var col=getRandomColor();
-           console.log(col);
+           //console.log(col);
            this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
 
            
-           console.log(this.chartData);
+          // console.log(this.chartData);//assign dates to specified teams (shrink the array)
            for(var i=0;i<this.chartData.length;i++)
            {
                 for(var j=i+1;j<this.chartData.length;j++)
@@ -72,7 +71,7 @@ export class Test_In_IntervalComponent implements OnInit {
                       
                       this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
                       this.chartData.splice(j,1);
-                      j=j-1;
+                      j=j-1;//remove the element after data array is updated and move to next element
                   }
 
                 }
@@ -86,23 +85,84 @@ export class Test_In_IntervalComponent implements OnInit {
       
       
 
-      console.log(this.chartData);
-     // this.chartData[1].data=Object.values(TeamsArr[2]);
-     // this.chartData[2].data=Object.values(TeamsArr[0]);
-    //this.labels= Object.keys(TeamsArr[0]);
-    });
+     console.log(this.chartData);
+    
+      });
+    }
+    else if(this.TimeScale=='month')
+    {
+      this.chartData.splice(1);
+      this.issueService.get_Test_History_Month().subscribe((TestArr) => {   //retrive the array of teams test data
+      
+      
+        this.Arr=TestArr as Array<any>;//convert object to array
+        this.Arr.pop();//last  element is irrelevant
+        this.Arr.sort(function(a,b){//sort array to prevent date jumbling in chart
+               return a.Date-b.Date
+               })
+  
+  
+  
+        console.log(this.Arr); 
+        
+         for(var val of this.Arr){      
+         var d= new Date(val["Date"]);
+        
+         
+         console.log(d);
+  
+           
+  
+             var col=getRandomColor();
+             console.log(col);
+             this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+  
+             
+            // console.log(this.chartData);//assign dates to specified teams (shrink the array)
+             for(var i=0;i<this.chartData.length;i++)
+             {
+                  for(var j=i+1;j<this.chartData.length;j++)
+                  {
+                    if(this.chartData[i]['label']==this.chartData[j]['label'])
+                    {   
+                        
+                        this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
+                        this.chartData.splice(j,1);
+                        j=j-1;//remove the element after data array is updated and move to next element
+                    }
+  
+                  }
+  
+             }
+  
+           
+           
+         }
+         
+        
+        
+  
+        console.log(this.chartData);
+      
+        });
+
+    }
   }
   
 
   selectedStartDate= new Date(1555200000000);
   selectedEndDate= new Date();
 
-  TimeScale ='day';
+  TimeScale ='month';//set timescale of graph
   
   
   // ADD CHART OPTIONS. 
   chartOptions = {
-    responsive: true ,  // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    responsive: true ,// THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    
+       
+    
+    
     title :{ 
       display:true,
       text :'Timeline of tests',
@@ -151,6 +211,7 @@ export class Test_In_IntervalComponent implements OnInit {
   },
   legend: {
     display: true,
+    position: 'bottom',
     labels: {
         fontColor: 'rgb(1, 2, 1)',
         fontSize:18
@@ -174,9 +235,9 @@ export class Test_In_IntervalComponent implements OnInit {
    
  labels = [];
 
-  // STATIC DATA FOR THE CHART IN JSON FORMAT.
+  // this declaration provides a outline for populating rest of array  without this error occcurece is sure.
   chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{}]}];
-
+   
     /*{
       label: 'TeamA',
       data: [{
@@ -233,7 +294,11 @@ export class Test_In_IntervalComponent implements OnInit {
     this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
     console.log(this.selectedEndDate);
     
+    
+    this.ngOnInit();
     this.chart.ngOnInit();
+    this.chart.chart.update();
+    
 
   }
 
