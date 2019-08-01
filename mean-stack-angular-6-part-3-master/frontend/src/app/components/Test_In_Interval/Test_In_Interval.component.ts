@@ -35,6 +35,9 @@ export class Test_In_IntervalComponent implements OnInit {
       
       this.Arr=TestArr as Array<any>;
       this.Arr.pop();
+      this.Arr.sort(function(a,b){
+        return a.Date-b.Date
+      })
       console.log(this.Arr); 
       
       for(var val of this.Arr){      

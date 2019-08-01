@@ -16,7 +16,7 @@ module.exports ={get_Daily:function(res)
            Sub:{ "$subtract": ["$StartTime",
               { "$mod": [
                "$StartTime",
-                60 * 60 * 24
+               1000* 60 * 60 * 24
             ]}] }
                                                                
                  
