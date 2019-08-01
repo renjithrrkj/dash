@@ -48,7 +48,7 @@ export class GraphComponent implements OnInit {
   // ADD CHART OPTIONS. 
   chartOptions = {
     responsive: true  ,  // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
-    defaultFontSize	: 24,
+    defaultFontSize	: 20,
     scales: {
       xAxes: [{
           barPercentage: 0.7,
@@ -58,12 +58,12 @@ export class GraphComponent implements OnInit {
               offsetGridLines: true
           },
           ticks: {
-            fontSize: 13
+            fontSize: 11
            },
            scaleLabel:{
             display:true,
           labelString:"Teams",
-          fontSize:14,
+          fontSize:11,
           fontFamily:"Ariel"
           
           },
@@ -74,12 +74,12 @@ export class GraphComponent implements OnInit {
         scaleLabel:{
           display:true,
         labelString:"Number of latest Tests",
-        fontSize:15,
+        fontSize:11,
         fontFamily:"Ariel"
         },
         fontSize:24,
         ticks: {
-          fontSize: 18
+          fontSize: 11
          }
       }]
       
@@ -87,7 +87,7 @@ export class GraphComponent implements OnInit {
   title: {
     display: true,
     text:'Test pass-fail chart',
-    fontSize:15,
+    fontSize:14,
     fontColor:'#000000'
 
    },
@@ -101,7 +101,7 @@ export class GraphComponent implements OnInit {
     display: true,
     labels: {
       fontColor: 'rgb(1, 2, 1)',
-      fontSize:18
+      fontSize:12
   }
 },
 layout: {
@@ -115,7 +115,7 @@ layout: {
 
   },
   axisX:{
-    labelFontSize: 20,
+    labelFontSize: 15,
   }
 }
    
