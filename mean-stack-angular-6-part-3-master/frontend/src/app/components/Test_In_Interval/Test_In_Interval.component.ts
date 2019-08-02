@@ -3,6 +3,7 @@ import { IssueService } from '../../issue.service';
 import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
+//import moment = require('moment');
 //import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
 function getRandomColor() {//function to generate random colours for labels
@@ -14,6 +15,21 @@ function getRandomColor() {//function to generate random colours for labels
   return color;
 }
 
+//to get date ranges for inserting zeroes to data if no tests were conducted
+function dateRange(startDate, endDate) {
+  var dates =[];
+  startDate=new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+  
+  while (endDate > startDate ) {
+    startDate= new Date(startDate.getFullYear(),startDate.getMonth()+1,1);
+    dates.push(startDate);
+    
+    
+ }
+ console.log(dates);
+  return dates;
+ 
+}
 
 
 @Component({
@@ -26,6 +42,8 @@ export class Test_In_IntervalComponent implements OnInit {
 
   constructor(private issueService: IssueService,/*private daterange:DateRange*/) { }
   @ViewChild(BaseChartDirective,{ static: true }) public chart: BaseChartDirective;
+  selectedStartDate= new Date(1555200000000);
+  selectedEndDate= new Date();
   //TeamsArr: object;
 
     Arr:Array<any>;
@@ -46,16 +64,12 @@ export class Test_In_IntervalComponent implements OnInit {
 
 
 
-      console.log(this.Arr ); 
       
-       for(var val of this.Arr){      
-       var d= new Date(val["Date"]);
       
-       
-       console.log(d);
-
-         
-
+       for(var val of this.Arr)
+       {      
+           var d= new Date(val["Date"]);   
+        
            var col=getRandomColor();
            //console.log(col);
            this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
@@ -118,28 +132,81 @@ export class Test_In_IntervalComponent implements OnInit {
              this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
   
              
-            // console.log(this.chartData);//assign dates to specified teams (shrink the array)
-             for(var i=0;i<this.chartData.length;i++)
-             {
-                  for(var j=i+1;j<this.chartData.length;j++)
-                  {
-                    if(this.chartData[i]['label']==this.chartData[j]['label'])
-                    {   
-                        
-                        this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
-                        this.chartData.splice(j,1);
-                        j=j-1;//remove the element after data array is updated and move to next element
-                    }
-  
-                  }
-  
-             }
+           
+            
+            
   
            
            
          }
+          // console.log(this.chartData);//assign dates to specified teams (shrink the array)
+         for(var i=0;i<this.chartData.length;i++)
+         {
+              for(var j=i+1;j<this.chartData.length;j++)
+              {
+                if(this.chartData[i]['label']==this.chartData[j]['label'])
+                {   
+                    
+                    this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
+                    this.chartData.splice(j,1);
+                    j=j-1;//remove the element after data array is updated and move to next element
+                }
+
+              }
+
+         }
          
+
+         //loop to shift aggregate to start of month
+         for(var value1 of this.chartData)
+             {
+               console.log(value1);
+              if(this.chartData.indexOf(value1)!=0)
+              {
+               for(var value2 of value1['data'])
+               {
+                 value2['t']= new Date(value2['t'].getFullYear(), value2['t'].getMonth(), 1); 
+               }
+              }
+             }
+
+
+        var daterange =dateRange(this.selectedStartDate,this.selectedEndDate);//get daterange
+        console.log(daterange);
         
+         for(var value1 of this.chartData)
+         {
+          var dataArr=[];
+           for(var value2 of value1['data'])
+           {
+             if(this.chartData.indexOf(value1)!=0)
+             {
+            dataArr.push(value2['t']);
+            console.log(dataArr);
+             }
+           }
+           for(var dat of daterange)
+          {
+             if (dataArr.indexOf(dat)<0)
+             {
+              value1['data'].push({t:dat,y:0}) 
+              console.log(dat);
+             }
+           
+          }
+          
+         }
+
+         
+
+         for(var value1 of this.chartData)
+         { 
+           value1['data'].sort(function(a,b){
+             return a.t - b.t
+           })
+
+           }
+         
         
   
         console.log(this.chartData);
@@ -150,8 +217,7 @@ export class Test_In_IntervalComponent implements OnInit {
   }
   
 
-  selectedStartDate= new Date(1555200000000);
-  selectedEndDate= new Date();
+ 
 
   TimeScale ='month';//set timescale of graph
   
@@ -236,7 +302,7 @@ export class Test_In_IntervalComponent implements OnInit {
  labels = [];
 
   // this declaration provides a outline for populating rest of array  without this error occcurece is sure.
-  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{}]}];
+  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:new Date(0),y:0}]}];
    
     /*{
       label: 'TeamA',
