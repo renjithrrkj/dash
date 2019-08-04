@@ -177,32 +177,50 @@ export class Test_In_IntervalComponent implements OnInit {
          for(var value1 of this.chartData)
          {
           var dataArr=[];
+          
            for(var value2 of value1['data'])
            {
-             if(this.chartData.indexOf(value1)!=0)
-             {
-            dataArr.push(value2['t']);
-            console.log(dataArr);
-             }
-           }
-           for(var dat of daterange)
-          {
-             if (dataArr.indexOf(dat)<0)
-             {
-              value1['data'].push({t:dat,y:0}) 
-              console.log(dat);
-             }
+            
+             dataArr.push(value2['t']);
+             console.log(value2);
            
-          }
-          
-         }
+           
+           }
+           
+           for(var dat of daterange)
+            { 
+             console.log(dataArr.includes(dat));
+             console.log(dat);
+             
+             
+              value1['data'].push({t:dat,y:0});              
+             
+            
+           
+           }
+
+           for( var i=0;i< value1['data'].length-1;i++)
+           {
+               for(var j=i+1;j<value1['data'].length;j++)
+               {
+                 if(Number(value1['data'][i]['t'])===Number(value1['data'][j]['t']))
+                 {
+                   value1['data'].splice(j,1);
+                   j=j-1;
+                   console.log(this.chartData);
+                 }
+               }
+           }
+        
+      }
+
 
          
 
          for(var value1 of this.chartData)
          { 
            value1['data'].sort(function(a,b){
-             return a.t - b.t
+             return Number(a.t) - Number(b.t)
            })
 
            }
@@ -240,7 +258,7 @@ export class Test_In_IntervalComponent implements OnInit {
           type: 'time',
           
           time: {
-            unit: 'day',
+            unit: 'month',
            min: this.selectedStartDate,           
            max: this.selectedEndDate
               
@@ -296,7 +314,12 @@ export class Test_In_IntervalComponent implements OnInit {
     bodyFontSize:20,
     titleFontFamily:'courier',
     bodyFontFamily:'courier'
-  }    
+  }    ,
+  elements: {
+    line: {
+        tension: 0
+    }
+}
   }
    
  labels = [];
