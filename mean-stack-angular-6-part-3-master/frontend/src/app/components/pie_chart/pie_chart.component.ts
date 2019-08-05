@@ -43,6 +43,7 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
           backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
         },
       ];
+      
 
 
 

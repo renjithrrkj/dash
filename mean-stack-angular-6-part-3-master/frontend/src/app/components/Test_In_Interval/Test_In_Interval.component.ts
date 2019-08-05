@@ -18,13 +18,33 @@ function getRandomColor() {//function to generate random colours for labels
 //to get date ranges for inserting zeroes to data if no tests were conducted
 function dateRange(startDate, endDate) {
   var dates =[];
-  startDate=new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+  startDate=new Date(startDate.getFullYear(), startDate.getMonth()-1, 1);
   
   while (endDate > startDate ) {
     startDate= new Date(startDate.getFullYear(),startDate.getMonth()+1,1);
     dates.push(startDate);
     
     
+
+
+ }
+ console.log(dates);
+  return dates;
+ 
+}
+
+function dateRangeDay(startDate, endDate) {
+  var dates =[];
+  //startDate=new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+ startDate=new Date(Number(startDate));
+ endDate=new Date(Number(endDate));
+  while (endDate > startDate ) {
+    
+    dates.push(startDate);
+    startDate.setDate(startDate.getDate()+1);
+    dates.push(new Date(startDate));
+    console.log(startDate);
+        
  }
  console.log(dates);
   return dates;
@@ -95,7 +115,59 @@ export class Test_In_IntervalComponent implements OnInit {
          
          
        }
+
+       var daterange =dateRangeDay(this.selectedStartDate,this.selectedEndDate);//get daterange
+       console.log(daterange);
        
+        for(var value1 of this.chartData)
+        {
+         //var dataArr=[];
+         
+         /* for(var value2 of value1['data'])
+          {
+           
+            dataArr.push(value2['t']);
+            console.log(value2);
+          
+          
+          }*/
+          if(this.chartData.indexOf(value1)!=0){
+          
+          for(var dat of daterange)
+           { 
+           // console.log(dataArr.includes(dat));
+            console.log(dat);
+            
+            
+             value1['data'].push({t:dat,y:0});              
+            
+           
+          
+          }
+        }
+
+        /*  for( var i=0;i< value1['data'].length-1;i++)
+          {
+              for(var j=i+1;j<value1['data'].length;j++)
+              {
+                if(Number(value1['data'][i]['t'])===Number(value1['data'][j]['t']))
+                {
+                  value1['data'].splice(j,1);
+                  j=j-1;
+                  console.log(this.chartData);
+                }
+              }
+          }*/
+       
+     }
+       
+     for(var value1 of this.chartData)
+     { 
+       value1['data'].sort(function(a,b){
+         return Number(a.t) - Number(b.t)
+       })
+
+       }
       
       
 
@@ -165,7 +237,7 @@ export class Test_In_IntervalComponent implements OnInit {
               {
                for(var value2 of value1['data'])
                {
-                 value2['t']= new Date(value2['t'].getFullYear(), value2['t'].getMonth(), 1); 
+                 value2['t']= new Date(value2['t'].getFullYear(), value2['t'].getMonth()+1, 1); 
                }
               }
              }
