@@ -3,9 +3,10 @@ import { IssueService } from '../../issue.service';
 import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
+//import moment = require('moment');
 //import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
-function getRandomColor() {
+function getRandomColor() {//function to generate random colours for labels
   var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
@@ -14,6 +15,41 @@ function getRandomColor() {
   return color;
 }
 
+//to get date ranges for inserting zeroes to data if no tests were conducted
+function dateRange(startDate, endDate) {
+  var dates =[];
+  startDate=new Date(startDate.getFullYear(), startDate.getMonth()-1, 1);
+  
+  while (endDate > startDate ) {
+    startDate= new Date(startDate.getFullYear(),startDate.getMonth()+1,1);
+    dates.push(startDate);
+    
+    
+
+
+ }
+ console.log(dates);
+  return dates;
+ 
+}
+
+function dateRangeDay(startDate, endDate) {
+  var dates =[];
+  //startDate=new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+ startDate=new Date(Number(startDate));
+ endDate=new Date(Number(endDate));
+  while (endDate > startDate ) {
+    
+    dates.push(startDate);
+    startDate.setDate(startDate.getDate()+1);
+    dates.push(new Date(startDate));
+    console.log(startDate);
+        
+ }
+ console.log(dates);
+  return dates;
+ 
+}
 
 
 @Component({
@@ -26,43 +62,40 @@ export class Test_In_IntervalComponent implements OnInit {
 
   constructor(private issueService: IssueService,/*private daterange:DateRange*/) { }
   @ViewChild(BaseChartDirective,{ static: true }) public chart: BaseChartDirective;
+  selectedStartDate= new Date(1555200000000);
+  selectedEndDate= new Date();
   //TeamsArr: object;
 
     Arr:Array<any>;
   ngOnInit() {
-    this.issueService.get_Test_History().subscribe((TestArr) => {
-      
-      
-      this.Arr=TestArr as Array<any>;
-      this.Arr.pop();
-      this.Arr.sort(function(a,b){
-        return a.Date-b.Date
-      })
-      console.log(this.Arr); 
-      
-      for(var val of this.Arr){      
-       var d= new Date(val["Date"]);
-       //var s =new Date(1555200000000);
-       
-       console.log(d);
+    if(this.TimeScale=='day')
+    {
+      this.chartData.splice(1);
 
-      // var m = d.toString;
-       //d.slice(0,10);
-       //this.labels.push(d);
-       /*var c=val['count'];
-       console.log(c);
-       var dat =[{t:d,y: c}];
-       console.log(dat);
-       var k={label:val["Team"],data:dat};
-       console.log(k);*/
-       
 
+    this.issueService.get_Test_History().subscribe((TestArr) => {   //retrive the array of teams test data
+      
+      
+      this.Arr=TestArr as Array<any>;//convert object to array
+      this.Arr.pop();//last  element is irrelevant
+      this.Arr.sort(function(a,b){//sort array to prevent date jumbling in chart
+             return a.Date-b.Date
+             })
+
+
+
+      
+      
+       for(var val of this.Arr)
+       {      
+           var d= new Date(val["Date"]);   
+        
            var col=getRandomColor();
-           console.log(col);
+           //console.log(col);
            this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
 
            
-           console.log(this.chartData);
+          // console.log(this.chartData);//assign dates to specified teams (shrink the array)
            for(var i=0;i<this.chartData.length;i++)
            {
                 for(var j=i+1;j<this.chartData.length;j++)
@@ -72,7 +105,7 @@ export class Test_In_IntervalComponent implements OnInit {
                       
                       this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
                       this.chartData.splice(j,1);
-                      j=j-1;
+                      j=j-1;//remove the element after data array is updated and move to next element
                   }
 
                 }
@@ -82,27 +115,210 @@ export class Test_In_IntervalComponent implements OnInit {
          
          
        }
+
+       var daterange =dateRangeDay(this.selectedStartDate,this.selectedEndDate);//get daterange
+       console.log(daterange);
        
+        for(var value1 of this.chartData)
+        {
+         //var dataArr=[];
+         
+         /* for(var value2 of value1['data'])
+          {
+           
+            dataArr.push(value2['t']);
+            console.log(value2);
+          
+          
+          }*/
+          if(this.chartData.indexOf(value1)!=0){
+          
+          for(var dat of daterange)
+           { 
+           // console.log(dataArr.includes(dat));
+            console.log(dat);
+            
+            
+             value1['data'].push({t:dat,y:0});              
+            
+           
+          
+          }
+        }
+
+        /*  for( var i=0;i< value1['data'].length-1;i++)
+          {
+              for(var j=i+1;j<value1['data'].length;j++)
+              {
+                if(Number(value1['data'][i]['t'])===Number(value1['data'][j]['t']))
+                {
+                  value1['data'].splice(j,1);
+                  j=j-1;
+                  console.log(this.chartData);
+                }
+              }
+          }*/
+       
+     }
+       
+     for(var value1 of this.chartData)
+     { 
+       value1['data'].sort(function(a,b){
+         return Number(a.t) - Number(b.t)
+       })
+
+       }
       
       
 
-      console.log(this.chartData);
-     // this.chartData[1].data=Object.values(TeamsArr[2]);
-     // this.chartData[2].data=Object.values(TeamsArr[0]);
-    //this.labels= Object.keys(TeamsArr[0]);
-    });
+     console.log(this.chartData);
+    
+      });
+    }
+    else if(this.TimeScale=='month')
+    {
+      this.chartData.splice(1);
+      this.issueService.get_Test_History_Month().subscribe((TestArr) => {   //retrive the array of teams test data
+      
+      
+        this.Arr=TestArr as Array<any>;//convert object to array
+        this.Arr.pop();//last  element is irrelevant
+        this.Arr.sort(function(a,b){//sort array to prevent date jumbling in chart
+               return a.Date-b.Date
+               })
+  
+  
+  
+        console.log(this.Arr); 
+        
+         for(var val of this.Arr){      
+         var d= new Date(val["Date"]);
+        
+         
+         console.log(d);
+  
+           
+  
+             var col=getRandomColor();
+             console.log(col);
+             this.chartData.push({label:val["Team"],borderColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+  
+             
+           
+            
+            
+  
+           
+           
+         }
+          // console.log(this.chartData);//assign dates to specified teams (shrink the array)
+         for(var i=0;i<this.chartData.length;i++)
+         {
+              for(var j=i+1;j<this.chartData.length;j++)
+              {
+                if(this.chartData[i]['label']==this.chartData[j]['label'])
+                {   
+                    
+                    this.chartData[i]['data'].push(this.chartData[j]['data'][0]);
+                    this.chartData.splice(j,1);
+                    j=j-1;//remove the element after data array is updated and move to next element
+                }
+
+              }
+
+         }
+         
+
+         //loop to shift aggregate to start of month
+         for(var value1 of this.chartData)
+             {
+               console.log(value1);
+              if(this.chartData.indexOf(value1)!=0)
+              {
+               for(var value2 of value1['data'])
+               {
+                 value2['t']= new Date(value2['t'].getFullYear(), value2['t'].getMonth()+1, 1); 
+               }
+              }
+             }
+
+
+        var daterange =dateRange(this.selectedStartDate,this.selectedEndDate);//get daterange
+        console.log(daterange);
+        
+         for(var value1 of this.chartData)
+         {
+          var dataArr=[];
+          
+           for(var value2 of value1['data'])
+           {
+            
+             dataArr.push(value2['t']);
+             console.log(value2);
+           
+           
+           }
+           
+           for(var dat of daterange)
+            { 
+             console.log(dataArr.includes(dat));
+             console.log(dat);
+             
+             
+              value1['data'].push({t:dat,y:0});              
+             
+            
+           
+           }
+
+           for( var i=0;i< value1['data'].length-1;i++)
+           {
+               for(var j=i+1;j<value1['data'].length;j++)
+               {
+                 if(Number(value1['data'][i]['t'])===Number(value1['data'][j]['t']))
+                 {
+                   value1['data'].splice(j,1);
+                   j=j-1;
+                   console.log(this.chartData);
+                 }
+               }
+           }
+        
+      }
+
+
+         
+
+         for(var value1 of this.chartData)
+         { 
+           value1['data'].sort(function(a,b){
+             return Number(a.t) - Number(b.t)
+           })
+
+           }
+         
+        
+  
+        console.log(this.chartData);
+      
+        });
+
+    }
   }
   
 
-  selectedStartDate= new Date(1555200000000);
-  selectedEndDate= new Date();
+ 
 
-  TimeScale ='day';
+  TimeScale ='month';//set timescale of graph
   
   
   // ADD CHART OPTIONS. 
   chartOptions = {
-    responsive: true ,  // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    responsive: true ,// THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    
+       
+    
+    
     title :{ 
       display:true,
       text :'Timeline of tests',
@@ -114,7 +330,7 @@ export class Test_In_IntervalComponent implements OnInit {
           type: 'time',
           
           time: {
-            unit: 'day',
+            unit: 'month',
            min: this.selectedStartDate,           
            max: this.selectedEndDate
               
@@ -151,6 +367,7 @@ export class Test_In_IntervalComponent implements OnInit {
   },
   legend: {
     display: true,
+    position: 'bottom',
     labels: {
         fontColor: 'rgb(1, 2, 1)',
         fontSize:18
@@ -169,14 +386,19 @@ export class Test_In_IntervalComponent implements OnInit {
     bodyFontSize:20,
     titleFontFamily:'courier',
     bodyFontFamily:'courier'
-  }    
+  }    ,
+  elements: {
+    line: {
+        tension: 0
+    }
+}
   }
    
  labels = [];
 
-  // STATIC DATA FOR THE CHART IN JSON FORMAT.
-  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{}]}];
-
+  // this declaration provides a outline for populating rest of array  without this error occcurece is sure.
+  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:new Date(0),y:0}]}];
+   
     /*{
       label: 'TeamA',
       data: [{
@@ -233,7 +455,11 @@ export class Test_In_IntervalComponent implements OnInit {
     this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
     console.log(this.selectedEndDate);
     
+    
+    this.ngOnInit();
     this.chart.ngOnInit();
+    this.chart.chart.update();
+    
 
   }
 

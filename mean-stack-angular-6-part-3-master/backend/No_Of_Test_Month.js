@@ -16,7 +16,7 @@ module.exports ={get_Daily:function(res)
            Sub:{ "$subtract": ["$StartTime",
               { "$mod": [
                "$StartTime",
-               1000* 60 * 60 * 24
+               1000 * 60 * 60 * 24 * 30
             ]}] }
                                                                
                  
@@ -76,13 +76,16 @@ module.exports ={get_Daily:function(res)
              }
 
             //var sum=0;
-            for(var i=0;i<Team_date.length-1;i++)                    
+            for(var i=0;i<Team_date.length-1;i++)
+           /* {
+                sum += i["count"];
+            }*/
+            
             {
             console.log(count_of_Tests);
                 for(var j=i+1;j<Team_date.length;j++)
                 {
-                    if((Team_date[i]["Team"]==Team_date[j]["Team"]))
-                    {
+                    if((Team_date[i]["Team"]==Team_date[j]["Team"])){
                         if(Team_date[i]["Date"]==Team_date[j]["Date"])
                         {
                            
@@ -94,8 +97,7 @@ module.exports ={get_Daily:function(res)
                             j=j-1;     
 
                            
-                        }
-                    }
+                        }}
                 }
             }
            //for(var i=0;i<Team_date.length;i++)
