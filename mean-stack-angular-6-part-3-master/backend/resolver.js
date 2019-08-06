@@ -32,10 +32,12 @@ module.exports ={getTeam_name:function(res){
         {
             $group://groups them into testscrpit that were excecuted lastest using last agregator 
             {
-                 _id: {TestScript:"$TestScript"},
+                 _id: {RunId:"$RunId"},
             
                  StartTime: { $last: "$StartTime" },
-                  Status:{$last: "$Status"}
+                 TestScript:{$push:{Test:"$TestScript",Stat:"$Status"}}
+                 
+                  //Status:{$last: "$Status"}
             }
             
         }
@@ -45,7 +47,7 @@ module.exports ={getTeam_name:function(res){
   
     console.log(latestrun);
 
-            for(var val of latestrun)//traverse recived array for objects
+           /* for(var val of latestrun)//traverse recived array for objects
             {
     
                     if(val['_id']['TestScript'].substring(0,5)=='tests')//the testscript name starting with tests are python
@@ -60,7 +62,7 @@ module.exports ={getTeam_name:function(res){
                         team_name_temp=val['_id']['TestScript'].split('.')[2];
          
                     }
-                    if( Object.keys(Teams).includes(team_name_temp))//increment the value correspong to team name
+                   if( Object.keys(Teams).includes(team_name_temp))//increment the value correspong to team name
                     {
                           
                           Teams[team_name_temp]++;
@@ -124,7 +126,43 @@ module.exports ={getTeam_name:function(res){
              }
              console.log(Teams);
              //res.json(Teams); 
-             TeamArr=[Teams,Teams_pass,Teams_fail];
+             TeamArr=[Teams,Teams_pass,Teams_fail];*/
+             latestrun.sort(function(a, b){
+                return a.StartTime-b.StartTime
+            });
+            
+            for(var val of latestrun)
+            {
+                if(val['TestScript'][0]['Test'].substring(0,5)=='tests')
+                {
+                    team_name_temp=val['TestScript'][0]['Test'].split('/')[1];
+                }
+                else
+                {
+                    team_name_temp=val['TestScript'][0]['Test'].split('.')[2];
+                }
+                if(Object.keys(Teams).includes(team_name_temp)==false)
+                {
+                    Teams[team_name_temp]=val['TestScript'].length;
+                    var countPass = 0;var countFail=0;
+                    for(var tes of val['TestScript'])
+                    {
+                        if(tes["Stat"]=="PASSED")
+                        {
+                            countPass++;
+                        }
+                        else
+                        {
+                            countFail++;
+                        }
+                    }
+                    Teams_pass[team_name_temp]=countPass;
+                    Teams_fail[team_name_temp]=countFail;
+                }
+                   
+                
+            }
+            TeamArr=[Teams,Teams_pass,Teams_fail];
              res.json(TeamArr);
             });
 //this is to retrive failed values
