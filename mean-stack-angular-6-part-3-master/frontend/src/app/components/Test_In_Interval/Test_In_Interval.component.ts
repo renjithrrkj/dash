@@ -18,9 +18,10 @@ function getRandomColor() {//function to generate random colours for labels
 //to get date ranges for inserting zeroes to data if no tests were conducted
 function dateRange(startDate, endDate) {
   var dates =[];
+  endDate=new Date(endDate.getFullYear(), endDate.getMonth()-1, 1);
   startDate=new Date(startDate.getFullYear(), startDate.getMonth()-1, 1);
   
-  while (endDate > startDate ) {
+  while (endDate >= startDate ) {
     startDate= new Date(startDate.getFullYear(),startDate.getMonth()+1,1);
     dates.push(startDate);
     
@@ -38,10 +39,13 @@ function dateRangeDay(startDate, endDate) {
   //startDate=new Date(startDate.getFullYear(), startDate.getMonth(), 1);
  startDate=new Date(Number(startDate));
  endDate=new Date(Number(endDate));
+ endDate.setDate(endDate.getDate()-1);
+ startDate.setDate(startDate.getDate()-5);
   while (endDate > startDate ) {
     
-    dates.push(startDate);
+    
     startDate.setDate(startDate.getDate()+1);
+    dates.push(startDate);
     dates.push(new Date(startDate));
     console.log(startDate);
         
@@ -116,7 +120,7 @@ export class Test_In_IntervalComponent implements OnInit {
          
        }
 
-       var daterange =dateRangeDay(this.selectedStartDate,this.selectedEndDate);//get daterange
+       var daterange =dateRangeDay(this.selectedStartDate,new Date());//get daterange
        console.log(daterange);
        
         for(var value1 of this.chartData)
@@ -243,7 +247,7 @@ export class Test_In_IntervalComponent implements OnInit {
              }
 
 
-        var daterange =dateRange(this.selectedStartDate,this.selectedEndDate);//get daterange
+        var daterange =dateRange(this.selectedStartDate,new Date());//get daterange
         console.log(daterange);
         
          for(var value1 of this.chartData)
