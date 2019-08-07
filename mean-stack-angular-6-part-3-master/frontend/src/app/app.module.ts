@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -12,6 +12,7 @@ import { MatInputModule} from '@angular/material';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatGridListModule} from '@angular/material/grid-list';
+
 
 
 
@@ -70,7 +71,9 @@ const routes: Routes = [
     MatInputModule,
     MatSidenavModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    ReactiveFormsModule
+   
     
   ],
   providers: [IssueService],

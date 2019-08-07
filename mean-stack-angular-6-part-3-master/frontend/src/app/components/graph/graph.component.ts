@@ -4,6 +4,7 @@ import { IssueService } from '../../issue.service';
 import { Chart, ChartOptions } from 'chart.js';
 import * as ChartLabel from 'chartjs-plugin-datalabels';
 import * as data from './avoided.json';
+import { FormControl,ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -36,10 +37,12 @@ export class GraphComponent implements OnInit {
        }
       this.chartData[0].data=Object.values(TeamsArr[1]);
       this.chartData[1].data=Object.values(TeamsArr[2]);
-      this.chartData[2].data=Object.values(TeamsArr[0]);
+     // this.chartData[2].data=Object.values(TeamsArr[0]);
     this.labels= Object.keys(TeamsArr[0]);
+    this.toppingList=Array.from(this.labels);
      
     });
+    //this.toppingList=this.labels;
   }
 
   
@@ -54,6 +57,7 @@ export class GraphComponent implements OnInit {
           barPercentage: 0.7,
           maxBarThickness: 45,
           minBarLength: 2,
+          stacked:true,
           gridLines: {
               offsetGridLines: true
           },
@@ -71,6 +75,7 @@ export class GraphComponent implements OnInit {
       }],
       yAxes:[{
         display:true,
+        stacked:true,
         scaleLabel:{
           display:true,
         labelString:"Number of latest Tests",
@@ -86,8 +91,8 @@ export class GraphComponent implements OnInit {
     },
   title: {
     display: true,
-    text:'Test pass-fail chart',
-    fontSize:14,
+    text:'NUMBER OF TEST CASES (PASS/FAIL) PER TEAM',
+    fontSize:20,
     fontColor:'#000000'
 
    },
@@ -121,6 +126,12 @@ layout: {
    
 //labels is teamname 
   labels = [];
+  toppings = new FormControl();
+
+  toppingList= [];
+  
+  holdingArray=[];
+
 
   // STATIC DATA FOR THE CHART IN JSON FORMAT.
   chartData=[] = [
@@ -133,24 +144,20 @@ layout: {
 
       data: []
     },
-    {
-      label:'Total',
-      data:[]
-      
-    }
+    
   
   ];
 
   // CHART COLOR.
   colors = [
-    { // 1st Year.
+    { // pass.
       backgroundColor: 'rgba(22,400,100,0.3)',
       hoverBackgroundColor:'rgba(22,400,100,0.9)',
       borderColor:'rgba(22,400,100,0.9)',
       borderWidth:1
     
     },
-    { // 2nd Year.
+    { // fail.
       backgroundColor: 'rgba(2000, 19, 22, 0.3)',
       hoverBackgroundColor:'rgba(2000, 19, 22, 0.9)',
       borderColor:'rgba(2000, 19, 22, 0.9)',
@@ -168,5 +175,34 @@ layout: {
   // CHART CLICK EVENT.
   onChartClick(event) {
     console.log(event);
+    console.log(this.toppings['value']);
+  }
+  onClick(event)
+  {
+    console.log(event);
+    for(var value of this.toppings['value'])
+    {
+        var index=this.labels.indexOf(value);
+        var team=this.labels.splice(index,1)[0];
+        var temp1=this.chartData[0].data.splice(index,1)[0];
+        var temp2=this.chartData[1].data.splice(index,1)[0];
+        this.holdingArray.push({Team:team,pass:temp1,fail:temp2});
+        
+
+        
+        
+        
+        
+    }
+    console.log(this.holdingArray);
+    for(var value of this.holdingArray)
+    {
+      if((this.toppings['value'].includes(value['Team'])==false)&&(this.labels.includes(value['Team'])==false))
+      {
+        this.labels.push(value["Team"]);
+        this.chartData[0].data.push(value['pass']);
+        this.chartData[1].data.push(value['fail']);
+      }
+    }
   }
 }
