@@ -1,5 +1,20 @@
 
+  
   <div style="position: relative; height:95%; width:95%;">
+    <div style="padding: 10px">
+    <mat-form-field>
+      <mat-select placeholder="select team" [formControl]="toppings" multiple>
+        <mat-select-trigger>
+          {{toppings.value ? toppings.value[0] : ''}}
+          <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+            (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="onClick($event)" style="color:aliceblue">Update</button>
+  </div>
   <canvas 
       baseChart
       [chartType]="'bar'"
