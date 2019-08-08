@@ -1,13 +1,11 @@
-var request = require('request'),
-    username = "kare9001",
-    password = "Technl98",
-    url = "http://" + username + ":" + password + "@www.example.com";
-
-request(
-    {
-        url : url
-    },
-    function (error, response, body) {
-        // Do more stuff with 'body' here
-    }
-);
+var request = require('request');
+ 
+module.exports={get_hours:function(res){
+request("http://localhost:3000/test",{json:true},(err,res,body)=>{
+    
+    if (err) { return console.log(err); }
+    console.log(body.url);
+    console.log(body.explanation);
+});
+}
+}

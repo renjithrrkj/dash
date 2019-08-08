@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
  var resolved =require('./resolver');
  var No_Of_Tests = require('./No_Of_Tests');
  var No_Of_Tests_Month =require('./No_Of_Test_Month');
+ var Hours_saved =require('./Hours_saved');
 
 //const tez =require('./models/tez');
 var database = mongoUtil.getDb();
@@ -97,6 +98,10 @@ router.route('/Teams/monthly').get((req, res) => {
      console.log(d);
      No_Of_Tests_Month.get_Daily(res);
  });
+
+ router.get('/hours',(req,res)=>{
+     Hours_saved.get_hours();
+ })
 
 /*router.route('/issues/add').post((req, res) => {
     let issue = new Issue(req.body);
