@@ -100,7 +100,7 @@ router.route('/Teams/monthly').get((req, res) => {
  });
 
  router.get('/hours',(req,res)=>{
-     Hours_saved.get_hours();
+     Hours_saved.get_hours(res);
  })
 
 /*router.route('/issues/add').post((req, res) => {
