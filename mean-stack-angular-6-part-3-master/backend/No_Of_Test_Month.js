@@ -16,10 +16,10 @@ module.exports ={get_Daily:function(res)
            Sub:{ "$subtract": ["$StartTime",
               { "$mod": [
                "$StartTime",
-               1000 * 60 * 60 * 24 * 30
+               1000 * 60 * 60 * 24 * 31
             ]}] }
                                                                
-                 
+            
             },
            "count": { "$sum": 1 },
             
@@ -46,7 +46,7 @@ module.exports ={get_Daily:function(res)
                     {
          
                         team_name_temp=val['_id']['Test'].split('/')[1];
-                        date_temp=val['_id']['Sub'] //*1000;
+                        date_temp=(val['_id']['Sub']) //*1000;
                         
         
  
@@ -54,7 +54,7 @@ module.exports ={get_Daily:function(res)
                     else
                     {
                         team_name_temp=val['_id']['Test'].split('.')[2];
-                        date_temp=val['_id']['Sub'];
+                        date_temp=(val['_id']['Sub']);
          
                     }
                     

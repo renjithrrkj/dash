@@ -1,6 +1,6 @@
 var request = require('request');
  
-module.exports={get_hours:function(res){
+module.exports={get_hours_month:function(res){
 var jira=[];var Team_date =[];var count_of_Tests=0;
 request("http://localhost:3000/test",{json:true},(err,res,body)=>{
     
@@ -37,7 +37,7 @@ mongoUtil.connectToServer( function( err, client ) {
        Sub:{ "$subtract": ["$StartTime",
           { "$mod": [
            "$StartTime",
-           1000* 60 * 60 * 24
+           1000* 60 * 60 * 24 *31
         ]}] }
                                                            
              
@@ -151,10 +151,6 @@ mongoUtil.connectToServer( function( err, client ) {
 
 
 })
-
-
-
-
 
 
 }

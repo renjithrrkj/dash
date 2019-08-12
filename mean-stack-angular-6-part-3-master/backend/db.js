@@ -1,5 +1,5 @@
 const MongoClient = require( 'mongodb' ).MongoClient;
-const url = "mongodb://3.17.160.250:8080";
+const url = "mongodb://52.15.111.120:8080";
 
 var _db;
 
