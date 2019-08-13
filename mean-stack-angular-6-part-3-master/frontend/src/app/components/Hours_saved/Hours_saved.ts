@@ -3,7 +3,7 @@ import { IssueService } from '../../issue.service';
 import { BaseChartDirective } from 'ng2-charts';
 import {Chart} from 'chart.js';
 import { Moment } from 'moment';
-//import { timingSafeEqual } from 'crypto';
+
 //import moment = require('moment');
 //import { DateRange } from '../date_range/date_range.component';
 //import {ChartDataLabels} from 'chartjs-plugin-datalabels';
@@ -79,12 +79,12 @@ function dateRangeDay(startDate, endDate) {
 
 
 @Component({
-  selector: 'Test_Interval',
-  templateUrl: './Test_In_Interval.component.html',
-  styleUrls: ['./Test_In_Interval.component.css']
+  selector: 'Hours_saved',
+  templateUrl: './Hours_saved.html',
+  styleUrls: ['./Hours_saved.css']
 })
 
-export class Test_In_IntervalComponent implements OnInit {
+export class Hours_savedComponent implements OnInit {
 
   constructor(private issueService: IssueService,/*private daterange:DateRange*/) { }
   @ViewChild(BaseChartDirective,{ static: true }) public chart: BaseChartDirective;
@@ -99,7 +99,7 @@ export class Test_In_IntervalComponent implements OnInit {
       this.chartData.splice(1);
 
 
-    this.issueService.get_Test_History().subscribe((TestArr) => {   //retrive the array of teams test data
+    this.issueService.get_Hours_saved().subscribe((TestArr) => {   //retrive the array of teams test data
       
       
       this.Arr=TestArr as Array<any>;//convert object to array
@@ -118,7 +118,7 @@ export class Test_In_IntervalComponent implements OnInit {
         
            var col=getRandomColor();
            //console.log(col);
-           this.chartData.push({label:val["Team"],borderColor:col,pointBackgroundColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:3,pointBorderWidth:3,pointHoverRadius:6,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+           this.chartData.push({label:val["Team"],borderColor:col,pointBackgroundColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:2,pointBorderWidth:3,pointHoverRadius:6,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
 
            
           // console.log(this.chartData);//assign dates to specified teams (shrink the array)
@@ -201,10 +201,14 @@ export class Test_In_IntervalComponent implements OnInit {
     
       });
     }
+
+
+
+
     else if(this.TimeScale=='month')
     {
       this.chartData.splice(1);
-      this.issueService.get_Test_History_Month().subscribe((TestArr) => {   //retrive the array of teams test data
+      this.issueService.get_Hours_saved_month().subscribe((TestArr) => {   //retrive the array of teams test data
       
       
         this.Arr=TestArr as Array<any>;//convert object to array
@@ -332,10 +336,13 @@ export class Test_In_IntervalComponent implements OnInit {
     }
 
 
+
+
+
     else if(this.TimeScale=='year')
     {
       this.chartData.splice(1);
-      this.issueService.get_Test_History_Month().subscribe((TestArr) => {   //retrive the array of teams test data
+      this.issueService.get_Hours_saved_year().subscribe((TestArr) => {   //retrive the array of teams test data
       
       
         this.Arr=TestArr as Array<any>;//convert object to array
@@ -394,7 +401,7 @@ export class Test_In_IntervalComponent implements OnInit {
               {
                for(var value2 of value1['data'])
                {
-                 value2['t']= new Date(value2['t'].getFullYear(),0); 
+                 value2['t']= new Date(value2['t'].getFullYear()+1,0); 
                }
               }
              }
@@ -462,190 +469,191 @@ export class Test_In_IntervalComponent implements OnInit {
 
     }
   }
-  
 
- 
 
-  TimeScale ='month';//set timescale of graph
+
+
+
+TimeScale ='day';//set timescale of graph
   
   
-  // ADD CHART OPTIONS. 
-  chartOptions = {
-    responsive: true ,// THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
-    
-       
-    
-    
-    title :{ 
-      display:true,
-      text :'Test Execution History',
-      fontSize:18,
-      fontFamily:'Helvetica Neue'
-    },
-    scales: {
-      xAxes: [{
-          type: 'time',
-          
-          time: {
-            unit: this.TimeScale,
-           min: this.selectedStartDate,           
-           max: this.selectedEndDate
-              
-          },
-         /* ticks:{
-            source:'data'
-          }*/
-          ticks: {
-            fontSize: 15,
+// ADD CHART OPTIONS. 
+chartOptions = {
+  responsive: true ,// THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+  
+     
+  
+  
+  title :{ 
+    display:true,
+    text :'Hours Saved',
+    fontSize:20,
+    fontFamily:'Sans-serif'
+  },
+  scales: {
+    xAxes: [{
+        type: 'time',
+        
+        time: {
+          unit: this.TimeScale,
+         min: this.selectedStartDate,           
+         max: this.selectedEndDate
             
-           },
-          scaleLabel:{
-            display:true,
-            labelString:"Time",
-            fontSize:20,
-            fontFamily:"Ariel"
-          },
-         
-      }],
-      yAxes:[{
-        ticks: {
-          fontSize: 15
-         },
-         scaleLabel:{
-          display:true,
-        labelString:"Number    of    Tests   Excecuted",
-        fontSize:15,
-        fontFamily:"Ariel",
-        
         },
-
-      }]
-      
-  },
-  legend: {
-    display: true,
-    position: 'bottom',
-    labels: {
-        fontColor: 'rgb(1, 2, 1)',
-        fontSize:18
-    }
-  },
-  layout: {
-    padding: {
-        left: 150,
-        right: 85,
-        top: 5,
-        bottom: 9
-         }
-      },
-  tooltips:{
-    titleFontSize:20,
-    bodyFontSize:20,
-    titleFontFamily:'courier',
-    bodyFontFamily:'courier',
-    /*callbacks: {
+       /* ticks:{
+          source:'data'
+        }*/
+        ticks: {
+          fontSize: 15,
+          
+         },
+        scaleLabel:{
+          display:true,
+          labelString:"Time",
+          fontSize:20,
+          fontFamily:"Ariel"
+        },
        
-      title: function(tooltipItem) {
-        Test_In_IntervalComponent()
-        if(TimeScale=="month")
-      {
-          return(tooltipItem[0]['label'].slice(0,4));
-        }
-        else if(Test_In_IntervalComponent.TimeScale=="day")
-      {
-        return (tooltipItem[0]['label'].slice(0,9));
-      }
-      else if(this.TimeScale=="year")
-      {
-        return (tooltipItem[0]['label'].slice(4,9));
-      }
-      else
-      {
-        console.log(t);
-        return (tooltipItem[0]['label'].slice(4,9));
-        
-      }
-    }
+    }],
+    yAxes:[{
+      ticks: {
+        fontSize: 15
+       },
+       scaleLabel:{
+        display:true,
+      labelString:"Hours Saved",
+      fontSize:15,
+      fontFamily:"Ariel",
       
-  }*/
-},
-  
-  elements: {
-    line: {
-        tension: 0
-    }
-}
-  }
+      },
 
-   
- labels = [];
-
-  // this declaration provides a outline for populating rest of array  without this error occcurece is sure.
-  chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',pointBackgroundColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:5,pointBorderWidth:3,pointHoverRadius:10,/*backgroundColor:colo*/data:[{t:new Date(0),y:0}]}];
-   
-    /*{
-      label: 'TeamA',
-      data: [{
-        x: new Date(),
-        y: 1
-    }, {
-        t: new Date(),
-        y: 10
     }]
+    
+},
+legend: {
+  display: true,
+  position: 'bottom',
+  labels: {
+      fontColor: 'rgb(1, 2, 1)',
+      fontSize:18
+  }
+},
+layout: {
+  padding: {
+      left: 150,
+      right: 85,
+      top: 5,
+      bottom: 9
+       }
     },
-    { 
-      label: 'TeamB',
-
-      data: [33,33,11,9,23,98,43]
-    },
+tooltips:{
+  titleFontSize:20,
+  bodyFontSize:20,
+  titleFontFamily:'courier',
+  bodyFontFamily:'courier',
+  /*callbacks: {
+     
+    title: function(tooltipItem) {
+      Test_In_IntervalComponent()
+      if(TimeScale=="month")
     {
-      label:'Teamc',
-
-      data:[45,1,33,88,76,1,33,99]
-    }*/
-  
-  
-
-  // CHART COLOR.
-  colors = [
-    { 
-      borderColor: 'rgba(0,0,0,0)',
-      backgroundColor: 'rgba(0,0,0,0)'
+        return(tooltipItem[0]['label'].slice(0,4));
+      }
+      else if(Test_In_IntervalComponent.TimeScale=="day")
+    {
+      return (tooltipItem[0]['label'].slice(0,9));
     }
-    
-  ]
-
-  
-  
-  // CHART CLICK EVENT.
-  onChartClick(event) {
-    console.log(event);
-   
-    
- 
-
+    else if(this.TimeScale=="year")
+    {
+      return (tooltipItem[0]['label'].slice(4,9));
+    }
+    else
+    {
+      console.log(t);
+      return (tooltipItem[0]['label'].slice(4,9));
+      
+    }
   }
-   
+    
+}*/
+},
 
-  onClick(event)//trigers the event to modify the time range in  graph
-  
+elements: {
+  line: {
+      tension: 0
+  }
+}
+}
+
+ 
+labels = [];
+
+// this declaration provides a outline for populating rest of array  without this error occcurece is sure.
+chartData= [{label:'Teams:',borderColor:'rgba(0,0,0,0)',pointBackgroundColor:'rgba(0,0,0,0)',backgroundColor:'rgba(0,0,0,0)',pointRadius:3,pointBorderWidth:5,pointHoverRadius:6,/*backgroundColor:colo*/data:[{t:new Date(0),y:0}]}];
+ 
+  /*{
+    label: 'TeamA',
+    data: [{
+      x: new Date(),
+      y: 1
+  }, {
+      t: new Date(),
+      y: 10
+  }]
+  },
+  { 
+    label: 'TeamB',
+
+    data: [33,33,11,9,23,98,43]
+  },
   {
-    console.log(event);
-    
-    
-    console.log(this.TimeScale);
-    this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
-    this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
-    this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
-    
-    console.log(this.selectedEndDate);
-    
-    
-    this.ngOnInit();
-    this.chart.ngOnInit();
-    this.chart.chart.update();
-    
+    label:'Teamc',
 
+    data:[45,1,33,88,76,1,33,99]
+  }*/
+
+
+
+// CHART COLOR.
+colors = [
+  { 
+    borderColor: 'rgba(0,0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0)'
   }
+  
+]
+
+
+
+// CHART CLICK EVENT.
+onChartClick(event) {
+  console.log(event);
  
+  
+
+
+}
+ 
+
+onClick(event)//trigers the event to modify the time range in  graph
+
+{
+  console.log(event);
+  
+  
+  console.log(this.TimeScale);
+  this.chartOptions.scales.xAxes[0].time.min= this.selectedStartDate;
+  this.chartOptions.scales.xAxes[0].time.max= this.selectedEndDate;
+  this.chartOptions.scales.xAxes[0].time.unit=this.TimeScale;
+  
+  console.log(this.selectedEndDate);
+  
+  
+  this.ngOnInit();
+  this.chart.ngOnInit();
+  this.chart.chart.update();
+  
+
+}
+
 }

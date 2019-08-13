@@ -58,5 +58,19 @@ uri = 'http://52.15.111.120:8082';
     return this.http.get(`${this.uri}/Teams/monthly`);
   }
 
- 
+  get_Hours_saved()
+  {
+    return this.http.get(`${this.uri}/hours`);
+  }
+  
+  get_Hours_saved_month()
+  {
+    return this.http.get(`${this.uri}/hours/month`)
+  }
+
+  get_Hours_saved_year()
+  {
+    return this.http.get(`${this.uri}/hours/year`)
+  }
+
 }

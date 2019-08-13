@@ -31,6 +31,7 @@ import {Test_In_IntervalComponent} from './components/Test_In_Interval/Test_In_I
 import {DashboardComponent} from  './components/dashboard/dashboard.component';
 import {Bottom_barComponent} from './components/bottom_bar/bottom_bar.component';
 import {Pie_ChartComponent} from './components/pie_chart/pie_chart.component';
+import {Hours_savedComponent} from './components/Hours_saved/Hours_saved';
 
 
 import { IssueService } from './issue.service';
@@ -41,7 +42,8 @@ const routes: Routes = [
   {path:'sampleList',component:SampleListComponent},
   {path:'bar', component:TopBarComponent},
   {path:'Test_Interval',component:Test_In_IntervalComponent},
-  {path:'dashboard',component:DashboardComponent}
+  {path:'dashboard',component:DashboardComponent},
+  {path:'Time Saved',component:Hours_savedComponent}
 
 ];
 
@@ -54,7 +56,8 @@ const routes: Routes = [
     Test_In_IntervalComponent,
     DashboardComponent,
     Bottom_barComponent,
-    Pie_ChartComponent
+    Pie_ChartComponent,
+    Hours_savedComponent
   ],
   imports: [
     BrowserModule,

@@ -16,10 +16,10 @@ module.exports ={get_Daily:function(res)
            Sub:{ "$subtract": ["$StartTime",
               { "$mod": [
                "$StartTime",
-               1000 * 60 * 60 * 24 * 31
+               1000* 60 * 60 * 24 * 365
             ]}] }
                                                                
-            
+                 
             },
            "count": { "$sum": 1 },
             
@@ -46,7 +46,7 @@ module.exports ={get_Daily:function(res)
                     {
          
                         team_name_temp=val['_id']['Test'].split('/')[1];
-                        date_temp=(val['_id']['Sub']) //*1000;
+                        date_temp=val['_id']['Sub'] //*1000;
                         
         
  
@@ -54,7 +54,7 @@ module.exports ={get_Daily:function(res)
                     else
                     {
                         team_name_temp=val['_id']['Test'].split('.')[2];
-                        date_temp=(val['_id']['Sub']);
+                        date_temp=val['_id']['Sub'];
          
                     }
                     
@@ -76,16 +76,13 @@ module.exports ={get_Daily:function(res)
              }
 
             //var sum=0;
-            for(var i=0;i<Team_date.length-1;i++)
-           /* {
-                sum += i["count"];
-            }*/
-            
+            for(var i=0;i<Team_date.length-1;i++)                    
             {
             console.log(count_of_Tests);
                 for(var j=i+1;j<Team_date.length;j++)
                 {
-                    if((Team_date[i]["Team"]==Team_date[j]["Team"])){
+                    if((Team_date[i]["Team"]==Team_date[j]["Team"]))
+                    {
                         if(Team_date[i]["Date"]==Team_date[j]["Date"])
                         {
                            
@@ -97,7 +94,8 @@ module.exports ={get_Daily:function(res)
                             j=j-1;     
 
                            
-                        }}
+                        }
+                    }
                 }
             }
            //for(var i=0;i<Team_date.length;i++)

@@ -1,0 +1,68 @@
+<mat-sidenav-container   style="background-color: #fff;"class="example-container" >
+
+    <mat-sidenav #sidenav mode="side"  class="side-nav"  >
+
+            <h2 style="color: rgb(21, 21, 22) ; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"></h2>
+         
+          <div style="padding:10px">
+         <mat-form-field>
+            <mat-label> Select a TimeScale</mat-label>
+
+            <mat-select [(value)]="TimeScale" >
+
+              <mat-option>None</mat-option>
+              <mat-option value="day">day</mat-option>
+              <mat-option value="month">month</mat-option>
+              <mat-option value="year">year</mat-option>
+            </mat-select>
+          </mat-form-field>     
+        </div>    
+        
+       
+
+
+
+
+<div style="padding:10px">
+<mat-form-field>
+<input matInput [matDatepicker]="picker" placeholder="Choose a startDate" [(ngModel)]="selectedStartDate" >
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker [(ngModel)]="selectedStartDate" ngDefaultControl ></mat-datepicker>
+</mat-form-field>
+</div>
+
+
+
+
+<div style="padding:10px">
+<mat-form-field>
+
+<input matInput [matDatepicker]="picker1" placeholder="Choose a endDate" [(ngModel)]="selectedEndDate">
+<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+<mat-datepicker #picker1 [(ngModel)]="selectedEndDate" ngDefaultControl ></mat-datepicker>
+</mat-form-field>
+</div>
+
+
+<div style="padding:10px">
+<button mat-mini-fab color="primary" (click)="onClick($event)" style="color: aliceblue">Apply</button>
+</div>
+
+</mat-sidenav>   
+<mat-sidenav-content>
+    <p style="color: white"><button mat-button (click)="sidenav.toggle()"><i class="material-icons" style="color: aliceblue">
+            event
+            </i>TimeScale</button></p>
+    
+            <canvas style="position: relative; height:70%; width:70%;"
+                baseChart class="chart"
+                [chartType]="'line'"
+                [datasets]="chartData"
+                [options]="chartOptions"        
+                [legend]="true"
+                [colors]="colors"
+                (chartClick)="onChartClick($event)">
+            </canvas>
+          
+</mat-sidenav-content>
+</mat-sidenav-container>
