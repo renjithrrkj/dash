@@ -335,7 +335,7 @@ export class Test_In_IntervalComponent implements OnInit {
     else if(this.TimeScale=='year')
     {
       this.chartData.splice(1);
-      this.issueService.get_Test_History_Month().subscribe((TestArr) => {   //retrive the array of teams test data
+      this.issueService.get_Test_History_Year().subscribe((TestArr) => {   //retrive the array of teams test data
       
       
         this.Arr=TestArr as Array<any>;//convert object to array
