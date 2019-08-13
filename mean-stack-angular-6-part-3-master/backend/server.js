@@ -100,6 +100,12 @@ router.route('/Teams/monthly').get((req, res) => {
      console.log(d);
      No_Of_Tests_Month.get_Daily(res);
  });
+  
+ router.route('/Teams/yearly').get((req, res) => {
+    var d= new Date(1562659727000);
+     console.log(d);
+     No_Of_Tests_Year.get_Daily(res);
+ });
 
  router.get('/hours',(req,res)=>{
      Hours_saved.get_hours(res);
