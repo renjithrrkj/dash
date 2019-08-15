@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
  var resolved =require('./resolver');
  var No_Of_Tests = require('./No_Of_Tests');
  var No_Of_Tests_Month =require('./No_Of_Test_Month');
+ var No_Of_Tests_Year =require('./No_Of_Test_Year');
  var Hours_saved =require('./Hours_saved');
  var Hours_saved_Month= require('./Hours_saved_Month');
  var Hours_saved_Year = require('./Hours_saved_Year');
@@ -100,6 +101,12 @@ router.route('/Teams/monthly').get((req, res) => {
      console.log(d);
      No_Of_Tests_Month.get_Daily(res);
  });
+  
+ router.route('/Teams/yearly').get((req, res) => {
+    var d= new Date(1562659727000);
+     console.log(d);
+     No_Of_Tests_Year.get_Daily(res);
+ });
 
  router.get('/hours',(req,res)=>{
      Hours_saved.get_hours(res);
@@ -155,6 +162,8 @@ router.route('/issues/delete/:id').get((req, res) => {
 
 app.use('/', router);
 
-app.listen(5000, () => console.log('Express server running on port 5000'));
+
+app.listen(8082, () => console.log('Express server running on port 8082 now'));
+
 });
 });
