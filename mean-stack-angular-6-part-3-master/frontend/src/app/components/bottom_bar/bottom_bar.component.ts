@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Bottom_barComponent implements OnInit {
  
-  links = ['graph', 'Test_Interval', 'dashboard','Time Saved'];
+  links = ['Dashboard','Test Results', 'Test History', 'Time Saved'];
   activeLink = this.links[0];
  
   constructor() { }

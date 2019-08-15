@@ -16,44 +16,18 @@ uri = 'http://52.15.111.120:8082';
     return this.http.get(`${this.uri}/tez`);
   }
 
- // getIssueById(id) {
-  //  return this.http.get(`${this.uri}/issues/${id}`);
-  //}
-
-  /*addIssue(title, responsible, description, severity) {
-    const issue = {
-      title: title,
-      responsible: responsible,
-      description: description,
-      severity: severity
-    };
-    return this.http.post(`${this.uri}/issues/add`, issue);
-  }
-
-  updateIssue(id, title, responsible, description, severity, status) {
-    const issue = {
-      title: title,
-      responsible: responsible,
-      description: description,
-      severity: severity,
-      status: status
-    };
-    return this.http.post(`${this.uri}/issues/update/${id}`, issue);
-  }
-
-  deleteIssue(id) {
-    return this.http.get(`${this.uri}/issues/delete/${id}`);
-  }*/
-  getPass_Per_Team()
+ 
+  
+  getPass_Per_Team()// get latest test results for bar graph
   {
     return this.http.get(`${this.uri}/Teams`);
    
   }
-  get_Test_History()
+  get_Test_History()// for line chart tests per day
   {
     return this.http.get(`${this.uri}/Teams/daily`);
   }
-  get_Test_History_Month()
+  get_Test_History_Month()// tests per month
   {
     return this.http.get(`${this.uri}/Teams/monthly`);
   }
@@ -62,17 +36,17 @@ uri = 'http://52.15.111.120:8082';
     return this.http.get(`${this.uri}/Teams/yearly`);
   }
 
-  get_Hours_saved()
+  get_Hours_saved()// hours saved per day
   {
     return this.http.get(`${this.uri}/hours`);
   }
   
-  get_Hours_saved_month()
+  get_Hours_saved_month()//hrs saved per month
   {
     return this.http.get(`${this.uri}/hours/month`)
   }
 
-  get_Hours_saved_year()
+  get_Hours_saved_year()//hrs saved per year
   {
     return this.http.get(`${this.uri}/hours/year`)
   }

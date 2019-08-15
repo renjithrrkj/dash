@@ -1,5 +1,5 @@
-const MongoClient = require( 'mongodb' ).MongoClient;
-const url = "mongodb://52.15.111.120:8080";
+const MongoClient = require( 'mongodb' ).MongoClient;//this file is used to connect to db import it into 
+const url = "mongodb://52.15.111.120:8080";//other files requiring connection to db
 
 var _db;
 

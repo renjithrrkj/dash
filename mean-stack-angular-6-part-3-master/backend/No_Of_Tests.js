@@ -5,7 +5,7 @@ module.exports ={get_Daily:function(res)
     mongoUtil.connectToServer( function( err, client ) {
      if (err) console.log(err);
      var database = mongoUtil.getDb();
-     var col =database.collection('tez');
+     var col =database.collection('tez');//connect to collection
      var Team_date=[];
      var count_of_Tests=0;
 
@@ -64,7 +64,7 @@ module.exports ={get_Daily:function(res)
                     
                     
                            
-                    count_of_Tests+=val['count'];
+                    count_of_Tests+=val['count'];//total count of all teams
         
                            Team_date.push({"Team":team_name_temp,"Date":date_temp,"count":val['count']});
                            
@@ -90,7 +90,7 @@ module.exports ={get_Daily:function(res)
                             
                             Team_date.splice(j,1);  
                             
-                            console.log(Team_date.length); 
+                           // console.log(Team_date.length); 
                             j=j-1;     
 
                            

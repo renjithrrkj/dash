@@ -114,11 +114,11 @@ export class Test_In_IntervalComponent implements OnInit {
       
        for(var val of this.Arr)
        {      
-           var d= new Date(val["Date"]);   
+           var d= new Date(val["Date"]);  //convert  timestamp to date format 
         
            var col=getRandomColor();
            //console.log(col);
-           this.chartData.push({label:val["Team"],borderColor:col,pointBackgroundColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:3,pointBorderWidth:3,pointHoverRadius:6,/*backgroundColor:colo*/data:[{t:d,y: val["count"]}]});
+           this.chartData.push({label:val["Team"],borderColor:col,pointBackgroundColor:col,backgroundColor:'rgba(0,0,0,0)',pointRadius:3,pointBorderWidth:3,pointHoverRadius:6,data:[{t:d,y: val["count"]}]});
 
            
           // console.log(this.chartData);//assign dates to specified teams (shrink the array)
@@ -642,8 +642,8 @@ export class Test_In_IntervalComponent implements OnInit {
     
     
     this.ngOnInit();
-    this.chart.ngOnInit();
-    this.chart.chart.update();
+   // this.chart.ngOnInit();
+   // this.chart.chart.update();
     
 
   }

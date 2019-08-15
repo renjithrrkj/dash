@@ -38,11 +38,11 @@ import { IssueService } from './issue.service';
 import { MatNativeDateModule } from '@angular/material/core';
 
 const routes: Routes = [
-  {path: 'graph', component:GraphComponent },
+  {path: 'Test Results', component:GraphComponent },
   {path:'sampleList',component:SampleListComponent},
   {path:'bar', component:TopBarComponent},
-  {path:'Test_Interval',component:Test_In_IntervalComponent},
-  {path:'dashboard',component:DashboardComponent},
+  {path:'Test History',component:Test_In_IntervalComponent},
+  {path:'Dashboard',component:DashboardComponent},
   {path:'Time Saved',component:Hours_savedComponent}
 
 ];

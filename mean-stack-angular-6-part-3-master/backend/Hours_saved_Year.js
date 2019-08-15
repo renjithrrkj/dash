@@ -2,7 +2,9 @@ var request = require('request');
  
 module.exports={get_hours_year:function(res){
 var jira=[];var Team_date =[];var count_of_Tests=0;
+
 request("http://172.31.26.196:89/test",{json:true},(err,res,body)=>{
+
     
     if (err) { return console.log(err); }
     console.log(body.url);

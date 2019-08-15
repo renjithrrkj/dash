@@ -9,7 +9,7 @@ module.exports ={get_Daily:function(res)
      var Team_date=[];
      var count_of_Tests=0;
 
-     col.aggregate([//to retrive the number of tests conducted in a day
+     col.aggregate([//to retrive the number of tests conducted in a month
         { "$group": {
             "_id": {Test : "$TestScript",
                 
