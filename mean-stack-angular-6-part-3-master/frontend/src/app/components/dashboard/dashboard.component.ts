@@ -36,6 +36,7 @@ this.issueService.getPass_Per_Team().subscribe((Teams)=>{
   this.Arr=Teams as Array<any>;
   this.No_of_teams=Object.keys(this.Arr[0]).length;
   this.No_of_teams=this.No_of_teams.toString();
+  console.log(this.No_of_teams);
 
 })
 

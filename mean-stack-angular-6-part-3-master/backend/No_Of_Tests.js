@@ -64,7 +64,7 @@ module.exports ={get_Daily:function(res)
                     
                     
                            
-                    count_of_Tests+=val['count'];
+                    count_of_Tests+=val['count'];//total count of all teams
         
                            Team_date.push({"Team":team_name_temp,"Date":date_temp,"count":val['count']});
                            
@@ -90,7 +90,7 @@ module.exports ={get_Daily:function(res)
                             
                             Team_date.splice(j,1);  
                             
-                            console.log(Team_date.length); 
+                           // console.log(Team_date.length); 
                             j=j-1;     
 
                            
