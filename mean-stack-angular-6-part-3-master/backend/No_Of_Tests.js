@@ -5,7 +5,7 @@ module.exports ={get_Daily:function(res)
     mongoUtil.connectToServer( function( err, client ) {
      if (err) console.log(err);
      var database = mongoUtil.getDb();
-     var col =database.collection('tez');
+     var col =database.collection('tez');//connect to collection
      var Team_date=[];
      var count_of_Tests=0;
 
