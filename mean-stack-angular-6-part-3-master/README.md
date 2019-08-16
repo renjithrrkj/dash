@@ -18,7 +18,7 @@ Copy the files in dist folder of  Dashboard project to var/www/html and Testmate
 restart the nginx server.
 
 db.js
-The information regarding coonection to db is entered in this file.
+The information regarding connection to db is entered in this file.
 
 No_of_tests.js
 Retrives information for Test_IN_Interval which powers test history graph.
