@@ -17,3 +17,31 @@ The build project is saved in dist folder.
 Copy the files in dist folder of  Dashboard project to var/www/html and Testmate to var/www/testmate.
 restart the nginx server.
 
+db.js
+The information regarding coonection to db is entered in this file.
+
+No_of_tests.js
+Retrives information for Test_IN_Interval which powers test history graph.
+
+resolver.js
+powers the bar graphs(ie test results).
+
+graph component(bar graph)
+
+Hours saved.js:
+information for hours saved graph
+
+
+server.js
+The basic fuction of node js api
+
+
+issue.service.ts:
+contains all functions to hit specific api endpoint of node api
+
+
+
+
+
+
+
