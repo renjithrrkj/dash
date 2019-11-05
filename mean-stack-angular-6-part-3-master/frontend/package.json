@@ -33,7 +33,7 @@
     "es6-shim": "0.35.5",
     "express": "4.17.1",
     "mongodb": "3.2.7",
-    "mongoose": "^5.6.3",
+    "mongoose": "^5.7.5",
     "ng-charts": "1.0.0-alpha",
     "ng2-charts": "2.3.0",
     "ngx-daterangepicker-material": "^2.1.7",
